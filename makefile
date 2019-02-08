@@ -1,10 +1,10 @@
 all:
 	clear
 		cd /home/pi/Downloads
-			wget http://pu8asr.talkaboutfrs.com.br/download/Pi/svxlink/svxlink-install-pt_BR.c
-				wget http://pu8asr.talkaboutfrs.com.br/download/Pi/svxlink/optimization-partitions.py
-					wget http://pu8asr.talkaboutfrs.com.br/download/Pi/svxlink/optimization-usb.py
-						wget http://pu8asr.talkaboutfrs.com.br/download/Pi/svxlink/svxlink-install-pt_BR.c
+			wget https://github.com/pu8asr/svxlink-automake/raw/master/svxlink-install-pt_BR.c
+				wget https://github.com/pu8asr/svxlink-automake/raw/master/optimization-partitions.py
+					wget https://github.com/pu8asr/svxlink-automake/raw/master/optimization-usb.py
+						wget https://github.com/pu8asr/svxlink-automake/raw/master/svxlink-install-pt_BR.c
 							gcc -g -o setup svxlink-install-pt_BR.c
 								./setup
 clean: setup
