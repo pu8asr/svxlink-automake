@@ -1,5 +1,5 @@
 # svxlink-automake
-Easy installation SVXLINK (Echolink) on Linux systems
+EchoLink on Raspberry - Easy installation SVXLINK on Linux systems
 
 My name is Airam, I am Brazilian and amateur radio call sign of my station is PU8ASR.
 Currently I keep a link in the city of Manaus, in the heart of the Amazon rainforest.
