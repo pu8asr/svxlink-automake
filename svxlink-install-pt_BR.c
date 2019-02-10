@@ -8,7 +8,7 @@
 #include<stdlib.h>
 #include<locale.h> //necessário para usar setlocale
 
-#define TEMP 1 //Contador de tempo para tela de abertura (15 segundos)
+#define TEMP 40 //Contador de tempo para tela de abertura (15 segundos)
 #define TMP 5 //Contador de tempo para mensagens (5 segundos)
 
 
@@ -62,7 +62,7 @@ void imprime_tela_abertura()
     printf("   Este software é protegido pela Lei de Direitos Autorais e de Propriedade\n");
     printf("   Intelectual. Não pode ser vendido ou comercializado. Sua distribuição é\n");
     printf("   gratuita e o código-fonte é disponibilizado sob os termos de licença\n");
-    printf("   GNU/Linux.\n\n"); //Se ativar a linha abaixo remover \n\n\n\n\n\n\n (7)
+    printf("   GNU/Linux 3.0 distribuíbo pelo GitHub.com.\n\n"); //Se ativar a linha abaixo remover \n\n\n\n\n\n\n (7)
     printf("   Autor: Airam - PU8ASR (airamcosta@gmail.com)\n\n");
     printf("   O menu será exibido em %d segundos\n", TEMP);
 }
