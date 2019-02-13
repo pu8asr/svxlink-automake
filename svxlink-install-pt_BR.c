@@ -330,7 +330,7 @@ int main(void)
 	    system("cd /var/spool && sudo chmod 777 svxlink && sudo tar zcvf svxlink.tgz svxlink"); //Com o swap desativado o diretório do svxlink será apagado no boot e precisará ser reestabelecido
 	    printf("\n\n   Instalando arquivos de áudio do SVXLINK\n\n");
 	    system("cd /home/pi/Downloads && wget https://github.com/sm0svx/svxlink-sounds-en_US-heather/releases/download/14.08/svxlink-sounds-en_US-heather-16k-13.12.tar.bz2 && tar -jxvf svxlink-sounds-en_US-heather-16k-13.12.tar.bz2 && sudo mkdir /usr/share/svxlink/sounds/en_US && cd en_US-heather-16k && sudo cp -r * /usr/share/svxlink/sounds/en_US");
-		system("cd /home/pi/Downloads && wget http://talkaboutfrs.com.br/download/PU8ASR/svxlink/sounds-svxlink-16k-pt_BR-HELENA.tar.bz2 && tar -jxvf sounds-svxlink-16k-pt_BR-HELENA.tar.bz2 && cd en_US && sudo cp -r * /usr/share/svxlink/sounds/en_US");
+		system("cd /home/pi/Downloads && wget https://github.com/pu8asr/svxlink-automake/raw/master/sounds-svxlink-16k-pt_BR-HELENA.tar.bz2 && tar -jxvf sounds-svxlink-16k-pt_BR-HELENA.tar.bz2 && cd en_US && sudo cp -r * /usr/share/svxlink/sounds/en_US");
 	    printf("\n   Arquivos de ádio do SVXLINK instalados com sucesso!\n");
 	    printf("\n\n   O arquivo svxlink-sounds-en_US-heather-16k-13.12.tar.bz2 e a pasta en_US-heather-16k não são mais necessários.\n");
 	    printf("   Iniciando exclusão...\n");
