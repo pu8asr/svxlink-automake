@@ -1,19 +1,39 @@
 # svxlink-automake
-Easy installation SVXLINK (Echolink) on Linux systems
 
-My name is Airam, I am Brazilian and amateur radio call sign of my station is PU8ASR.
-Currently I keep a link in the city of Manaus, in the heart of the Amazon rainforest.
-This link is connected to the Amazon Conference in Echolink (* AMAZON *).
-Very well discussed on renewable energy and energy saving.
-then found the Raspberry Pi.
-My link is working on Raspberry Pi B + (PU8ASR-L)
-In Brazil, unfortunately there are few knowledgeable / Linux system users and even less those who use and maintain a link with the amateur radio.
-I think I have given you to understand the purpose of this repository.
-I want to create a repository here so from a single command line, any user can start a guided and automatic installation, where the user must inform few data such as INDICATIVE, PASSWORD and model of your Raspberry / OS and from the then the system / scripts start the process of autoinstalar and autoconfigure all, leaving only the user to perform the necessary connections and use the link.
-It seems strange to do something in parallel to svxlink of sm0svx. We do not compete and I congratulate the hobby colleague for the efforts. I want to give a contribution does not change its structure and maybe later we can merge all, will be a mutual benefit (to all).
-We can even insert interfaces schemes in this repository and equivamente scheme will be downloaded according to user choice.
-If this project aroused interest in you, come in and help popularize the Raspberry and SVXLINK.
+EchoLink on Raspberry - Easy installation SVXLINK on Linux systems
 
-Objective 1: Allow from a command line user can perform the download of an initial file called svxlink-automake and run this file to launch a wizard using the Linux shell and this assistant store in variable values ​​for code, password Model Raspberry and version SVXLINK that it wishes to install. Example command: wget http://www.amazon.qsl.br/downloads/svxlink-automake && ./svxlink-automake
+Meu nome é Airam, sou brasileiro e radioamador com o indicativo de minha estação PU8ASR.
+Atualmente mantenho um link do Echolink na cidade de Manaus, no coração da floresta amazônica.
+Este link está conectado na Conferência Amazônica no Echolink ( *AMAZON* ).
+Muito se tem discutido sobre energias renováveis, auto-sustentabilidade e economia de recursos.
+E na busca de soluções para economia de energia no meu shack (estação de radioamador), encontrei o Raspberry Pi.
+Meu link está trabalhando no Raspberry Pi B + (PU8ASR-L).
+No Brasil, infelizmente, há poucos usuários de sistemas com conhecimento / Linux e menos ainda aqueles que usam e mantêm um link com o rádio amador.
+Eu acho que deu para você para entender o propósito deste repositório.
+Eu quero criar um repositório aqui para então, a partir de uma única linha de comando, qualquer usuário pode iniciar uma instalação guiada e automática, devendo informar poucos dados como INDICATIVO, SENHA para que scripts iniciem o processo de autoinstalar e autoconfigurar tudo, deixando apenas o usuário para realizar as conexões necessárias e usar o link.
+Parece estranho fazer algo em paralelo ao svxlink do sm0svx. Nós não competimos e parabenizo o colega de hobby pelos esforços. Eu quero dar uma contribuição sem mudar sua estrutura e talvez mais tarde possamos mesclar tudo, será um benefício mútuo (para todos).
+Podemos até inserir esquemas de interfaces neste repositório e o esquema equivamente será baixado de acordo com a escolha do usuário.
+Se este projeto despertou interesse em você, entre e ajude a popularizar o Raspberry e o SVXLINK.
 
-I believe so we can popularize this technology and reduce costs to keep a link on the air 24 hours a day.
+Tudo o que é necessário fazer para utilizar o Echolink no Raspberry Pi e/ou em outros modelos da família Pi como Orange, Bannana, dentre outros, são apenas os passos a seguir:
+1) Um cartão microSD Card de pelo menos 8GB - Classe 10;
+2) Qualquer modelo de Pi;
+3) Dongle de áudio USB;
+4) Conexão à internet que pode ser feita pelo cabo de rede ou wifi;
+5) Imagem do sistema operacional a ser gravado no microSD Card. Recomendável a versão completa - https://www.raspberrypi.org/downloads/raspbian/
+6) Software para formatar o microSD Card - https://www.sdcard.org/downloads/formatter_4/eula_windows/
+7) Software para gravação da imagem do sistema operacional no microSd Card - https://goo.gl/oIOyuJ
+8) Curso completo em vídeo para você entender os passos (Este instalador irá simplificar estes passos) - https://www.youtube.com/playlist?list=PLXMJj8G516Xpd8fiygQuFu_KMF8SIjgKy
+
+Basicamente depois que o sistema operacional estiver gravado no microSD Card e este por sua vez estiver inserido no Raspberry, bem como todos os dispositivos, basta ligá-lo pela primeira vez e após a inicialização, não realize configurações adicionais como idioma, hora, etc.
+Acesse o terminal de comandos e digite: cd /home/pi/Downloads && wget https://github.com/pu8asr/svxlink-automake/raw/master/makefile && make
+
+Depois é só seguir as etapas da instalação e se o Pi reiniciar, repetir o comando acima.
+
+Após a conclusão da instalação, a configuração do SVXLINK deve ser feita manualmente, por enquanto. Brevemente esperamos automativar tudo.
+
+Acredito que possamos popularizar essa tecnologia e reduzir custos para manter um link no ar 24 horas por dia.
+Comaprtilhe!
+
+Este texto está em Português do Brasil e pretendemos disponibilizar tambem em outros idiomas.
+Grupo de discussão oficial sobre Echolink no Raspberry no Whatsapp - https://goo.gl/ZHkPSw
