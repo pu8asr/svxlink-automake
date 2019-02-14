@@ -18,7 +18,7 @@ void limpa_tela_cabecalho();
 void cabecalho_menu_principal();
 void imprime_tela_abertura();
 int fileExists(char *cpfileName);
-int decision2Options();
+int decision2Options(); // Variável que recebe a decisão do usuário em relação aos backup dos arquivos
 /* Fim dos protótipos */
 
 /* Início dos códigos de tela */
@@ -43,7 +43,7 @@ void imprime_tela_cabecalho()
 /* Cabeçalho do menu principal */
 void cabecalho_menu_principal()
 {
-    sleep(TEMP); //Pausa a aplicação pelo tempo definido na constante TEMP para que o usuário possa ler
+    sleep(TEMP);
 
     imprime_tela_cabecalho();
     printf("  ================================== MENU ==================================\n\n");
@@ -359,9 +359,103 @@ int main(void)
 
 	    printf("  ========================= CONFIGURAÇÃO DO SVXLINK ========================\n\n");
 
-	    printf("   Não implementado nesta versão.");
+	    printf("   O assistente o ajudará agora a configurar o seu LINK ou REPETIDOR do\n");
+	    printf("   SVXLINK. Se os arquivos de configuação estiverem no seu estado original,\n");
+	    printf("   o assistente coletará algumas informações e fará a configuração\n");
+		printf("   automaticamente. Em caso contrário, você poderá restaurar estes arquivos\n");
+		printf("   ou editá-los manualmente.\n\n");
 
 	    sleep(TMP);
+		
+	    printf("   Verificando a existência de cópia de segurança...\n");
+
+	    if(fileExists("/etc/svxlink/svxlink.conf.bkp")==0)
+	    {
+		printf("   Não foi encontrada nenhuma cópia de segurança de /etc/svxlink/svxlink.conf\n");
+		printf("   Criando cópia de segurança do arquivo /etc/svxlink/svxlink.conf\n");
+		system("sudo cp /etc/svxlink/svxlink.conf /etc/svxlink/svxlink.conf.bkp");
+		printf("   Concluído!\n");
+	    } else
+	    if (fileExists("/etc/svxlink/svxlink.conf.bkp")==1)
+	    {
+		printf("   O arquivo svxlink.conf já foi alterado anteriormente.\n");
+		printf("   Deseja restaurar a cópia do arquivo original?\n");
+
+		if(decision2Options()==1)
+		{
+		    printf("   Restaurando a cópia arquivo original...\n");
+		    system("sudo cp /etc/svxlink/svxlink.conf.bkp /etc/svxlink/svxlink.conf");
+		    printf("   A cópia não é mais necessária. Removendo...\n");
+		    system("sudo rm /etc/svxlink/svxlink.conf.bkp");
+		    printf("   Concluído!\n");
+		} else
+		printf("   Deseja realizar a configuração manualmente?\n");
+		if(decision2Options()==1)
+		{
+		    system("sudo nano /etc/svxlink/svxlink.conf");
+		}
+	    };
+
+	    sleep(TMP);
+
+	    if(fileExists("/etc/svxlink/svxlink.d/ModuleEchoLink.conf.bkp")==0)
+	    {
+		printf("   Não foi encontrada nenhuma cópia de segurança de /etc/svxlink/svxlink.d/ModuleEchoLink.conf\n");
+		printf("   Criando cópia de segurança do arquivo /etc/svxlink/svxlink.d/ModuleEchoLink.conf\n");
+		system("sudo cp /etc/svxlink/svxlink.d/ModuleEchoLink.conf /etc/svxlink/svxlink.d/ModuleEchoLink.conf.bkp");
+		printf("   Concluído!\n");
+	    } else
+	    if(fileExists("/etc/svxlink/svxlink.d/ModuleEchoLink.conf.bkp")==1)
+	    {
+		printf("   O arquivo ModuleEchoLink.conf já foi alterado anteriormente.\n");
+		printf("   Deseja restaurar a cópia do arquivo original?\n");
+
+		if(decision2Options()==1)
+		{
+		    printf("   Restaurando a cópia do arquivo original...\n");
+		    system("sudo cp /etc/svxlink/svxlink.d/ModuleEchoLink.conf.bkp /etc/svxlink/svxlink.d/ModuleEchoLink.conf");
+		    printf("   A cópia não é mais necessária. Removendo...\n");
+		    system("sudo rm /etc/svxlink/svxlink.d/ModuleEchoLink.conf.bkp");
+		    printf("   Concluído!\n");
+		} else
+		printf("   Deseja realizar a configuração manualmente?\n");
+		if(decision2Options()==1)
+		{
+		    system("sudo nano /etc/svxlink/svxlink.d/ModuleEchoLink.conf");
+		}
+	    };
+		
+		sleep(TMP);
+
+	    if(fileExists("/etc/rc.local.bkp")==0)
+	    {
+		printf("   Não foi encontrada nenhuma cópia de segurança de /etc/rc.local\n");
+		printf("   Criando cópia de segurança do arquivo /etc/rc.local\n");
+		system("sudo cp /etc/rc.local /etc/rc.local.bkp");
+		printf("   Concluído!\n");
+	    } else
+	    if(fileExists("/etc/rc.local.bkp")==1)
+	    {
+		printf("   O arquivo /etc/rc.local já foi alterado anteriormente.\n");
+		printf("   Deseja restaurar a cópia do arquivo original?\n");
+
+		if(decision2Options()==1)
+		{
+		    printf("   Restaurando a cópia do arquivo original...\n");
+		    system("sudo cp /etc/rc.local.bkp /etc/rc.local");
+		    printf("   A cópia não é mais necessária. Removendo...\n");
+		    system("sudo rm /etc/rc.local.bkp");
+		    printf("   Concluído!\n");
+		} else
+		printf("   Deseja realizar a configuração manualmente?\n");
+		if(decision2Options()==1)
+		{
+		    system("sudo nano /etc/rc.local");
+		}
+	    }
+
+	    printf("\n\n   Terminado!\n\n");
+		
         }
 
         else if (Opt == 9)
