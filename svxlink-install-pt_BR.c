@@ -225,6 +225,10 @@ int main(void)
 	    printf("   consumo mais eficiente de hardware, software e energia.\n\n");
 
 	    sleep(TMP);
+		
+	    printf("   Removendo programas desnecessários e não utilizados...\n");
+
+	    system("sudo apt-get autoremove");
 
 	    printf("   Verificando a existência de cópia de segurança...\n");
 
