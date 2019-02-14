@@ -372,48 +372,6 @@ int main(void)
 				printf("   Criando cópia de segurança do arquivo /etc/svxlink/svxlink.conf\n");
 				system("sudo cp /etc/svxlink/svxlink.conf /etc/svxlink/svxlink.conf.bkp");
 				printf("   Concluído!\n");
-		
-				fflush(stdin); //Limpa o buffer do teclado para evitar erros
-				printf("   Você está configurando um link ou repetidor?\n");
-				printf("   Digite L para LINK ou R para REPETIDOR: ");
-				scanf("%c", &type); //Aguarda a escolha do usuário
-				type = toupper(type); // Transforma tudo em maiúsculas
-				getchar(); //Realiza uma pausa para que dê tempo para o usuário inserir a opção
-		
-				fflush(stdin); //Limpa o buffer do teclado para evitar erros
-				printf("   Informe seu indicativo: ");
-				scanf("%s", &CALLSIGN); //Aguarda a escolha do usuário
-				CALLSIGN = toupper(CALLSIGN); // Transforma tudo em maiúsculas
-				getchar(); //Realiza uma pausa para que dê tempo para o usuário inserir a opção
-		
-				fflush(stdin); //Limpa o buffer do teclado para evitar erros
-				printf("   Informe sua senha do Echolink: ");
-				scanf("%s", &PASSWORD); //Aguarda a escolha do usuário
-				getchar(); //Realiza uma pausa para que dê tempo para o usuário inserir a opção
-				
-				if (type == "R")
-				{
-					StreamReader sr = new StreamReader(/etc/svxlink/svxlink.conf);
-					StringBuilder sb = new StringBuilder();
-
-					while (!sr.EndOfStream)
-					{
-						string s = sr.ReadLine();
-						if (s.IndexOf(LOGICS=SimplexLogic) > -1)
-						{
-							s = s.Replace(LOGICS=SimplexLogic, LOGICS=RepeaterLogic);
-						}
-						sb.AppendLine(s);
-					}
-					sr.Close();
-
-					StreamWriter sw = new StreamWriter(/etc/svxlink/svxlink.conf);
-					sw.Write(sb);
-
-					sw.Close();
-				}
-				
-				
 			} else
 			if (fileExists("/etc/svxlink/svxlink.conf.bkp")==1)
 			{
