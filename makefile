@@ -5,7 +5,7 @@ all:
 				wget https://github.com/pu8asr/svxlink-automake/raw/master/optimization-partitions.py
 					wget https://github.com/pu8asr/svxlink-automake/raw/master/optimization-usb.py
 						gcc -g -o setup svxlink-install-pt_BR.c
-							sudo ./setup
+							./setup
 clean: setup
 	rm -f setup
 		rm -f svxlink-install-pt_BR.c
