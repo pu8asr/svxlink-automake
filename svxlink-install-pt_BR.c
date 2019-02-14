@@ -376,24 +376,24 @@ int main(void)
 				fflush(stdin); //Limpa o buffer do teclado para evitar erros
 				printf("   Você está configurando um link ou repetidor?\n");
 				printf("   Digite L para LINK ou R para REPETIDOR: ");
-				scanf("%d", &type); //Aguarda a escolha do usuário
+				scanf("%c", &type); //Aguarda a escolha do usuário
 				type = toupper(type); // Transforma tudo em maiúsculas
 				getchar(); //Realiza uma pausa para que dê tempo para o usuário inserir a opção
 		
 				fflush(stdin); //Limpa o buffer do teclado para evitar erros
 				printf("   Informe seu indicativo: ");
-				scanf("%d", &CALLSIGN); //Aguarda a escolha do usuário
+				scanf("%s", &CALLSIGN); //Aguarda a escolha do usuário
 				CALLSIGN = toupper(CALLSIGN); // Transforma tudo em maiúsculas
 				getchar(); //Realiza uma pausa para que dê tempo para o usuário inserir a opção
 		
 				fflush(stdin); //Limpa o buffer do teclado para evitar erros
 				printf("   Informe sua senha do Echolink: ");
-				scanf("%d", &PASSWORD); //Aguarda a escolha do usuário
+				scanf("%s", &PASSWORD); //Aguarda a escolha do usuário
 				getchar(); //Realiza uma pausa para que dê tempo para o usuário inserir a opção
 				
 				if (type == "R")
 				{
-					StreamReader sr = new StreamReader("/etc/svxlink/svxlink.conf");
+					StreamReader sr = new StreamReader(/etc/svxlink/svxlink.conf);
 					StringBuilder sb = new StringBuilder();
 
 					while (!sr.EndOfStream)
@@ -407,7 +407,7 @@ int main(void)
 					}
 					sr.Close();
 
-					StreamWriter sw = new StreamWriter("/etc/svxlink/svxlink.conf");
+					StreamWriter sw = new StreamWriter(/etc/svxlink/svxlink.conf);
 					sw.Write(sb);
 
 					sw.Close();
