@@ -230,6 +230,8 @@ int main(void)
 
 	    system("sudo apt-get autoremove");
 
+	    sleep(TMP);
+
 	    printf("   Verificando a existência de cópia de segurança...\n");
 
 	    if(fileExists("/etc/fstab.bkp")==0)
