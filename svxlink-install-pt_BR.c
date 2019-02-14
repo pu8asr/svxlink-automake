@@ -19,9 +19,6 @@ void cabecalho_menu_principal();
 void imprime_tela_abertura();
 int fileExists(char *cpfileName);
 int decision2Options(); // Variável que recebe a decisão do usuário em relação aos backup dos arquivos
-char type; // Variàvel que recebe o tipo de estação que está sendo configurada. L - LINK | R - REPETIDOR
-char[10] CALLSIGN;
-char[30] PASSWORD;
 /* Fim dos protótipos */
 
 /* Início dos códigos de tela */
