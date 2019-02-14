@@ -19,6 +19,9 @@ void cabecalho_menu_principal();
 void imprime_tela_abertura();
 int fileExists(char *cpfileName);
 int decision2Options(); // Variável que recebe a decisão do usuário em relação aos backup dos arquivos
+char type; // Variàvel que recebe o tipo de estação que está sendo configurada. L - LINK | R - REPETIDOR
+char[10] CALLSIGN;
+char[30] PASSWORD;
 /* Fim dos protótipos */
 
 /* Início dos códigos de tela */
@@ -127,340 +130,376 @@ int main(void)
 
         if (Opt == 1)
         {
-	    imprime_tela_cabecalho(); //Imprime o cabeçalho da aplicação
+			imprime_tela_cabecalho(); //Imprime o cabeçalho da aplicação
 
+			printf("  ======================== REMOCAO DO PULSE AUDIO ==========================\n\n");
 
-	    printf("  ======================== REMOCAO DO PULSE AUDIO ==========================\n\n");
+			printf("   O PulseAudio apresenta problemas de incompatibilidade. Por isso, faz-se\n");
+			printf("   necessaário removê-lo para que o AlsaMixer seja instalado posteriormente\n");
+			printf("   na opção 5 - Instalar Dependências\n\n");
 
-	    printf("   O PulseAudio apresenta problemas de incompatibilidade. Por isso, faz-se\n");
-	    printf("   necessaário removê-lo para que o AlsaMixer seja instalado posteriormente\n");
-	    printf("   na opção 5 - Instalar Dependências\n\n");
+			sleep(TMP);
 
-	    sleep(TMP);
-
-	    system("sudo apt-get purge pulseaudio gstreamer0.10-pulseaudio pulseaudio-utils");
+			system("sudo apt-get purge pulseaudio gstreamer0.10-pulseaudio pulseaudio-utils");
         }
 
         if (Opt == 2)
         {
-	    imprime_tela_cabecalho(); //Imprime o cabeçalho da aplicação
+			imprime_tela_cabecalho(); //Imprime o cabeçalho da aplicação
 
-	    printf("  ========================= ATUALIZAÇÃO DO SISTEMA =========================\n\n");
+			printf("  ========================= ATUALIZAÇÃO DO SISTEMA =========================\n\n");
 
-	    printf("   A partir de agora será iniciado o processo de download e instalação dos\n");
-	    printf("   componentes mais recentes para o seu sistema operacional.\n");
-	    printf("   Ao final do procedimento seu dispositivo Pi  será reiniciado.\n");
-	    printf("   Para continuar os passos seguintes, repita o processo descrito no site\n");
-	    printf("   para iniciar novamente o instalador...\n\n");
+			printf("   A partir de agora será iniciado o processo de download e instalação dos\n");
+			printf("   componentes mais recentes para o seu sistema operacional.\n");
+			printf("   Ao final do procedimento seu dispositivo Pi  será reiniciado.\n");
+			printf("   Para continuar os passos seguintes, repita o processo descrito no site\n");
+			printf("   para iniciar novamente o instalador...\n\n");
 
-	    sleep(TMP);
+			sleep(TMP);
 
-	    system("sudo apt-get update && sudo apt-get upgrade && sudo reboot");
+			system("sudo apt-get update && sudo apt-get upgrade && sudo reboot");
         }
 
         else if (Opt == 3)
         {
-	    imprime_tela_cabecalho(); //Imprime o cabeçalho da aplicação
+			imprime_tela_cabecalho(); //Imprime o cabeçalho da aplicação
 
-	    printf("  ========================= ATUALIZAÇÃO DO FIRMWARE ========================\n\n");
+			printf("  ========================= ATUALIZAÇÃO DO FIRMWARE ========================\n\n");
 
-	    printf("   A partir de agora será iniciado o processo de download e instalação do\n");
-	    printf("   seu hardware. É importante não interromper este processo para evitar a\n");
-	    printf("   inutilizacao do seu equipamento.\n");
-	    printf("   Seu dispositivo será automaticamente reiniciado ao final do processo.\n");
-	    printf("   Para continuar os passos seguintes, repita o processo descrito no site\n");
-	    printf("   para iniciar novamente o instalador...\n\n");
+			printf("   A partir de agora será iniciado o processo de download e instalação do\n");
+			printf("   seu hardware. É importante não interromper este processo para evitar a\n");
+			printf("   inutilizacao do seu equipamento.\n");
+			printf("   Seu dispositivo será automaticamente reiniciado ao final do processo.\n");
+			printf("   Para continuar os passos seguintes, repita o processo descrito no site\n");
+			printf("   para iniciar novamente o instalador...\n\n");
 
-	    sleep(TMP);
+			sleep(TMP);
 
-	    system("sudo UPDATE_SELF=0 rpi-update && sudo reboot");
+			system("sudo UPDATE_SELF=0 rpi-update && sudo reboot");
         }
 
         else if (Opt == 4)
         {
-	    imprime_tela_cabecalho(); //Imprime o cabeçalho da aplicação
+			imprime_tela_cabecalho(); //Imprime o cabeçalho da aplicação
 
-	    printf("  ============================== SVXLINK USER ==============================\n\n");
+			printf("  ============================== SVXLINK USER ==============================\n\n");
 
-	    printf("   O usuário svxlink é o responsável pela execução do software svxlink,\n");
-	    printf("   destinando o usuário pi(root) para fins mais importantes.\n");
-	    printf("   É necessário criá-lo(caso o mesmo não exista neste sistema).\n\n");
+			printf("   O usuário svxlink é o responsável pela execução do software svxlink,\n");
+			printf("   destinando o usuário pi(root) para fins mais importantes.\n");
+			printf("   É necessário criá-lo(caso o mesmo não exista neste sistema).\n\n");
 
-	    sleep(TMP);
+			sleep(TMP);
 
-	    system("sudo useradd -c \"Usuário Echolink\" -G gpio,audio -d /home/svxlink -m -s /sbin/nologin svxlink");
+			system("sudo useradd -c \"Usuário Echolink\" -G gpio,audio -d /home/svxlink -m -s /sbin/nologin svxlink");
         }
 
         else if (Opt == 5)
         {
-	    imprime_tela_cabecalho(); //Imprime o cabeçalho da aplicação
+			imprime_tela_cabecalho(); //Imprime o cabeçalho da aplicação
 
-	    printf("  ======================= INSTALAÇÃO DE DEPENDÊNCIAS =======================\n\n");
+			printf("  ======================= INSTALAÇÃO DE DEPENDÊNCIAS =======================\n\n");
 
-	    printf("   Para que o SVXLINK funcione corretamente, é necessario que alguns itens\n");
-	    printf("   estejam presentes em seu sistema.\n\n");
-	    printf("   Os seguintes itens serão instalados e caso já existam, serão atualizados:\n");
-	    printf("   g++ make libgsm1-dev libpopt-dev tcl8.5-dev libgcrypt-dev libspeex-dev\n");
-	    printf("   libasound2-dev alsa-utils libqt4-dev cmake libsigc++-2.0-dev\n");
-	    printf("   libgcrypt11-dev tk-dev libopus-dev groff\n\n");
+			printf("   Para que o SVXLINK funcione corretamente, é necessario que alguns itens\n");
+			printf("   estejam presentes em seu sistema.\n\n");
+			printf("   Os seguintes itens serão instalados e caso já existam, serão atualizados:\n");
+			printf("   g++ make libgsm1-dev libpopt-dev tcl8.5-dev libgcrypt-dev libspeex-dev\n");
+			printf("   libasound2-dev alsa-utils libqt4-dev cmake libsigc++-2.0-dev\n");
+			printf("   libgcrypt11-dev tk-dev libopus-dev groff\n\n");
 
-	    sleep(TMP);
+			sleep(TMP);
 
-	    system("sudo apt-get install g++ make libgsm1-dev libpopt-dev tcl8.5-dev libgcrypt-dev libspeex-dev libasound2-dev alsa-utils libqt4-dev cmake libsigc++-2.0-dev libgcrypt11-dev tk-dev libopus-dev groff --force-yes");
+			system("sudo apt-get install g++ make libgsm1-dev libpopt-dev tcl8.5-dev libgcrypt-dev libspeex-dev libasound2-dev alsa-utils libqt4-dev cmake libsigc++-2.0-dev libgcrypt11-dev tk-dev libopus-dev groff --force-yes");
 
-	    sleep(TMP);
+			sleep(TMP);
 
-
-	    printf("\n   Terminado!\n");
+			printf("\n   Terminado!\n");
         }
 
         else if (Opt == 6)
         {
-	    imprime_tela_cabecalho(); //Imprime o cabeçalho da aplicação
+			imprime_tela_cabecalho(); //Imprime o cabeçalho da aplicação
 
-	    printf("  ========================== OTIMIZAÇÃO DO SISTEMA =========================\n\n");
+			printf("  ========================== OTIMIZAÇÃO DO SISTEMA =========================\n\n");
 
-	    printf("   Algumas configurações serão feitas automaticamente para possibilitar que\n");
-	    printf("   o seu dispositivo utilize racionalmente os recursos, promovendo um\n");
-	    printf("   consumo mais eficiente de hardware, software e energia.\n\n");
+			printf("   Algumas configurações serão feitas automaticamente para possibilitar que\n");
+			printf("   o seu dispositivo utilize racionalmente os recursos, promovendo um\n");
+			printf("   consumo mais eficiente de hardware, software e energia.\n\n");
 
-	    sleep(TMP);
+			sleep(TMP);
 		
-	    printf("   Removendo programas desnecessários e não utilizados...\n");
+			printf("   Removendo programas desnecessários e não utilizados...\n");
 
-	    system("sudo apt-get autoremove");
+			system("sudo apt-get autoremove");
 
-	    sleep(TMP);
+			sleep(TMP);
 
-	    printf("   Verificando a existência de cópia de segurança...\n");
+			printf("   Verificando a existência de cópia de segurança...\n");
 
-	    if(fileExists("/etc/fstab.bkp")==0)
-	    {
-		printf("   Não foi encontrada nenhuma cópia de segurança de /etc/fstab\n");
-		printf("   Criando cópia de segurança do arquivo /etc/fstab\n");
-		system("sudo cp /etc/fstab /etc/fstab.bkp");
-		printf("   Otimizando partições...\n");
-		system("sudo python optimization-partitions.py");
-		printf("   Desativando SWAP...\n");
-		system("sudo swapoff --all");
-		printf("   Removendo SWAP...\n");
-		system("sudo apt-get remove dphys-swapfile");
-		printf("   Concluído!\n");
-	    } else
-	    if (fileExists("/etc/fstab.bkp")==1)
-	    {
-		printf("   O arquivo fstab já foi alterado anteriormente.\n");
-		printf("   Deseja restaurar a cópia do arquivo original?\n");
+			if(fileExists("/etc/fstab.bkp")==0)
+			{
+				printf("   Não foi encontrada nenhuma cópia de segurança de /etc/fstab\n");
+				printf("   Criando cópia de segurança do arquivo /etc/fstab\n");
+				system("sudo cp /etc/fstab /etc/fstab.bkp");
+				printf("   Otimizando partições...\n");
+				system("sudo python optimization-partitions.py");
+				printf("   Desativando SWAP...\n");
+				system("sudo swapoff --all");
+				printf("   Removendo SWAP...\n");
+				system("sudo apt-get remove dphys-swapfile");
+				printf("   Concluído!\n");
+			} else
+			if (fileExists("/etc/fstab.bkp")==1)
+			{
+				printf("   O arquivo fstab já foi alterado anteriormente.\n");
+				printf("   Deseja restaurar a cópia do arquivo original?\n");
 
-		if(decision2Options()==1)
-		{
-		    printf("   Restaurando a cópia arquivo original...\n");
-		    system("sudo cp /etc/fstab.bkp /etc/fstab");
-		    printf("   A cópia não é mais necessária. Removendo...\n");
-		    system("sudo rm /etc/fstab.bkp");
-		    printf("   Concluído!\n");
-		} else
-		printf("   Deseja realizar a configuração manualmente?\n");
-		if(decision2Options()==1)
-		{
-		    system("sudo nano /etc/fstab");
-		}
-	    };
+				if(decision2Options()==1)
+				{
+					printf("   Restaurando a cópia arquivo original...\n");
+					system("sudo cp /etc/fstab.bkp /etc/fstab");
+					printf("   A cópia não é mais necessária. Removendo...\n");
+					system("sudo rm /etc/fstab.bkp");
+					printf("   Concluído!\n");
+				} else
+				printf("   Deseja realizar a configuração manualmente?\n");
+				if(decision2Options()==1)
+				{
+					system("sudo nano /etc/fstab");
+				}
+			};
 
-	    sleep(TMP);
+			sleep(TMP);
 
-	    if(fileExists("/boot/config.txt.bkp")==0)
-	    {
-		printf("   Não foi encontrada nenhuma cópia de segurança de /boot/config.txt\n");
-		printf("   Criando cópia de segurança do arquivo /boot/config.txt\n");
-		system("sudo cp /boot/config.txt /boot/config.txt.bkp");
-		printf("   Configurando tensão nas portas USB...\n");
-		system("sudo python optimization-usb.py");
-		printf("   Concluído!\n");
-	    } else
-	    if(fileExists("/boot/config.txt.bkp")==1)
-	    {
-		printf("   O arquivo config.txt já foi alterado anteriormente.\n");
-		printf("   Deseja restaurar a cópia do arquivo original?\n");
+			if(fileExists("/boot/config.txt.bkp")==0)
+			{
+				printf("   Não foi encontrada nenhuma cópia de segurança de /boot/config.txt\n");
+				printf("   Criando cópia de segurança do arquivo /boot/config.txt\n");
+				system("sudo cp /boot/config.txt /boot/config.txt.bkp");
+				printf("   Configurando tensão nas portas USB...\n");
+				system("sudo python optimization-usb.py");
+				printf("   Concluído!\n");
+			} else
+			if(fileExists("/boot/config.txt.bkp")==1)
+			{
+				printf("   O arquivo config.txt já foi alterado anteriormente.\n");
+				printf("   Deseja restaurar a cópia do arquivo original?\n");
 
-		if(decision2Options()==1)
-		{
-		    printf("   Restaurando a cópia do arquivo original...\n");
-		    system("sudo cp /boot/config.txt.bkp /boot/config.txt");
-		    printf("   A cópia não é mais necessária. Removendo...\n");
-		    system("sudo rm /boot/config.txt.bkp");
-		    printf("   Concluído!\n");
-		} else
-		printf("   Deseja realizar a configuração manualmente?\n");
-		if(decision2Options()==1)
-		{
-		    system("sudo nano /boot/config.txt");
-		}
-	    }
+				if(decision2Options()==1)
+				{
+					printf("   Restaurando a cópia do arquivo original...\n");
+					system("sudo cp /boot/config.txt.bkp /boot/config.txt");
+					printf("   A cópia não é mais necessária. Removendo...\n");
+					system("sudo rm /boot/config.txt.bkp");
+					printf("   Concluído!\n");
+				} else
+				printf("   Deseja realizar a configuração manualmente?\n");
+				if(decision2Options()==1)
+				{
+					system("sudo nano /boot/config.txt");
+				}
+			};
 
-	    printf("\n\n   Terminado!\n\n");
+			printf("\n\n   Terminado!\n\n");
         }
 
         else if (Opt == 7)
         {
-	    imprime_tela_cabecalho(); //Imprime o cabeçalho da aplicação
+			imprime_tela_cabecalho(); //Imprime o cabeçalho da aplicação
 
-	    printf("  ========================== INSTALAÇÃO DO SVXLINK =========================\n\n");
+			printf("  ========================== INSTALAÇÃO DO SVXLINK =========================\n\n");
 
-	    printf("   A partir de agora será iniciado o processo de download e instalação do\n");
-	    printf("   SVXLINK, bem como dos arquivos de audio 13.12(no idioma Inglês dos\n");
-	    printf("   Estados Unidos).\n");
-	    printf("   É um processo demorado mas fique tranquilo!\n");
-	    printf("   Assim que estiver concluído, você visualizará o menu principal novamente\n");
-	    printf("   e poderá prosseguir com a configuração.\n\n");
+			printf("   A partir de agora será iniciado o processo de download e instalação do\n");
+			printf("   SVXLINK, bem como dos arquivos de audio 13.12(no idioma Inglês dos\n");
+			printf("   Estados Unidos).\n");
+			printf("   É um processo demorado mas fique tranquilo!\n");
+			printf("   Assim que estiver concluído, você visualizará o menu principal novamente\n");
+			printf("   e poderá prosseguir com a configuração.\n\n");
 
-	    sleep(TMP);
+			sleep(TMP);
 
-	    system("cd /home/pi/Downloads");
-	    system("wget https://github.com/sm0svx/svxlink/archive/master.tar.gz");
-	    printf("\n\n   Arquivo master.tar.gz baixado com sucesso em /home/pi/Downloads\n");
-	    printf("   Iniciando descompactação...\n\n");
-	    system("tar -xvzf master.tar.gz");
-	    printf("\n\n   Descompactação concluída!\n");
-	    printf("\n\n   O arquivo master.tar.gz não é mais necessário. Iniciando exclusão...\n");
-	    system("rm master.tar.gz");
-	    printf("\n\n   Exclusão concluída!\n");
-	    printf("   Iniciando instalação...\n\n");
-	    printf("\n\n   Criando diretório de compilação...\n\n");
-	    system("mkdir /home/pi/Downloads/svxlink-master/src/build");
-	    printf("\n\n   Diretório de compilação criado!\n");
-	    printf("\n\n   Compilando arquivos de instalação...\n\n");
-	    system("cd /home/pi/Downloads/svxlink-master/src/build && cmake -DCMAKE_INSTALL_PREFIX=/usr -DSYSCONF_INSTALL_DIR=/etc -DLOCAL_STATE_DIR=/var -DUSE_OSS=NO -DUSE_QT=NO .. && make && make doc && sudo ldconfig && sudo make install");
-	    printf("\n\n   Compilação concluída!\n");
-	    printf("\n\n   Configurando SWAP para SVXLINK...\n\n");
-	    system("cd /var/spool && sudo chmod 777 svxlink && sudo tar zcvf svxlink.tgz svxlink"); //Com o swap desativado o diretório do svxlink será apagado no boot e precisará ser reestabelecido
-	    printf("\n\n   Instalando arquivos de áudio do SVXLINK\n\n");
-	    system("cd /home/pi/Downloads && wget https://github.com/sm0svx/svxlink-sounds-en_US-heather/releases/download/14.08/svxlink-sounds-en_US-heather-16k-13.12.tar.bz2 && tar -jxvf svxlink-sounds-en_US-heather-16k-13.12.tar.bz2 && sudo mkdir /usr/share/svxlink/sounds/en_US && cd en_US-heather-16k && sudo cp -r * /usr/share/svxlink/sounds/en_US");
-		system("cd /home/pi/Downloads && wget https://github.com/pu8asr/svxlink-automake/raw/master/sounds-svxlink-16k-pt_BR-HELENA.tar.bz2 && tar -jxvf sounds-svxlink-16k-pt_BR-HELENA.tar.bz2 && cd en_US && sudo cp -r * /usr/share/svxlink/sounds/en_US");
-	    printf("\n   Arquivos de ádio do SVXLINK instalados com sucesso!\n");
-	    printf("\n\n   O arquivo svxlink-sounds-en_US-heather-16k-13.12.tar.bz2 e a pasta en_US-heather-16k não são mais necessários.\n");
-	    printf("   Iniciando exclusão...\n");
-	    system("cd /home/pi/Downloads");
-	    system("rm svxlink-sounds-en_US-heather-16k-13.12.tar.bz2");
-	    system("rm -r en_US-heather-16k");
-		system("rm sounds-svxlink-16k-pt_BR-HELENA.tar.bz2");
-	    system("rm -r en_US");
-	    printf("\n\n   Exclusão concluida!\n");
-	    printf("\n\n   A pasta SVXLINK utilizada na instalação não é mais necessária.\n");
-	    printf("   Iniciando exclusão...\n");
-	    system("sudo rm -r svxlink-master");
-	    printf("\n\n   Exclusão concluída!\n");
-	    printf("\n\n   SVXLINK instalado e pronto para ser configurado!\n");
+			system("cd /home/pi/Downloads");
+			system("wget https://github.com/sm0svx/svxlink/archive/master.tar.gz");
+			printf("\n\n   Arquivo master.tar.gz baixado com sucesso em /home/pi/Downloads\n");
+			printf("   Iniciando descompactação...\n\n");
+			system("tar -xvzf master.tar.gz");
+			printf("\n\n   Descompactação concluída!\n");
+			printf("\n\n   O arquivo master.tar.gz não é mais necessário. Iniciando exclusão...\n");
+			system("rm master.tar.gz");
+			printf("\n\n   Exclusão concluída!\n");
+			printf("   Iniciando instalação...\n\n");
+			printf("\n\n   Criando diretório de compilação...\n\n");
+			system("mkdir /home/pi/Downloads/svxlink-master/src/build");
+			printf("\n\n   Diretório de compilação criado!\n");
+			printf("\n\n   Compilando arquivos de instalação...\n\n");
+			system("cd /home/pi/Downloads/svxlink-master/src/build && cmake -DCMAKE_INSTALL_PREFIX=/usr -DSYSCONF_INSTALL_DIR=/etc -DLOCAL_STATE_DIR=/var -DUSE_OSS=NO -DUSE_QT=NO .. && make && make doc && sudo ldconfig && sudo make install");
+			printf("\n\n   Compilação concluída!\n");
+			printf("\n\n   Configurando SWAP para SVXLINK...\n\n");
+			system("cd /var/spool && sudo chmod 777 svxlink && sudo tar zcvf svxlink.tgz svxlink"); //Com o swap desativado o diretório do svxlink será apagado no boot e precisará ser reestabelecido
+			printf("\n\n   Instalando arquivos de áudio do SVXLINK\n\n");
+			system("cd /home/pi/Downloads && wget https://github.com/sm0svx/svxlink-sounds-en_US-heather/releases/download/14.08/svxlink-sounds-en_US-heather-16k-13.12.tar.bz2 && tar -jxvf svxlink-sounds-en_US-heather-16k-13.12.tar.bz2 && sudo mkdir /usr/share/svxlink/sounds/en_US && cd en_US-heather-16k && sudo cp -r * /usr/share/svxlink/sounds/en_US");
+			system("cd /home/pi/Downloads && wget https://github.com/pu8asr/svxlink-automake/raw/master/sounds-svxlink-16k-pt_BR-HELENA.tar.bz2 && tar -jxvf sounds-svxlink-16k-pt_BR-HELENA.tar.bz2 && cd en_US && sudo cp -r * /usr/share/svxlink/sounds/en_US");
+			printf("\n   Arquivos de ádio do SVXLINK instalados com sucesso!\n");
+			printf("\n\n   O arquivo svxlink-sounds-en_US-heather-16k-13.12.tar.bz2 e a pasta en_US-heather-16k não são mais necessários.\n");
+			printf("   Iniciando exclusão...\n");
+			system("cd /home/pi/Downloads");
+			system("rm svxlink-sounds-en_US-heather-16k-13.12.tar.bz2");
+			system("rm -r en_US-heather-16k");
+			system("rm sounds-svxlink-16k-pt_BR-HELENA.tar.bz2");
+			system("rm -r en_US");
+			printf("\n\n   Exclusão concluida!\n");
+			printf("\n\n   A pasta SVXLINK utilizada na instalação não é mais necessária.\n");
+			printf("   Iniciando exclusão...\n");
+			system("sudo rm -r svxlink-master");
+			printf("\n\n   Exclusão concluída!\n");
+			printf("\n\n   SVXLINK instalado e pronto para ser configurado!\n");
         }
 
         else if (Opt == 8)
         {
-	    imprime_tela_cabecalho(); //Imprime o cabeçalho da aplicação
+			imprime_tela_cabecalho(); //Imprime o cabeçalho da aplicação
 
-	    printf("  ========================= CONFIGURAÇÃO DO SVXLINK ========================\n\n");
+			printf("  ========================= CONFIGURAÇÃO DO SVXLINK ========================\n\n");
 
-	    printf("   O assistente o ajudará agora a configurar o seu LINK ou REPETIDOR do\n");
-	    printf("   SVXLINK. Se os arquivos de configuação estiverem no seu estado original,\n");
-	    printf("   o assistente coletará algumas informações e fará a configuração\n");
-		printf("   automaticamente. Em caso contrário, você poderá restaurar estes arquivos\n");
-		printf("   ou editá-los manualmente.\n\n");
+			printf("   O assistente o ajudará a configurar o seu LINK ou REPETIDOR.\n\n");
 
-	    sleep(TMP);
+			sleep(TMP);
 		
-	    printf("   Verificando a existência de cópia de segurança...\n");
+			printf("   Verificando a existência de cópia de segurança...\n");
 
-	    if(fileExists("/etc/svxlink/svxlink.conf.bkp")==0)
-	    {
-		printf("   Não foi encontrada nenhuma cópia de segurança de /etc/svxlink/svxlink.conf\n");
-		printf("   Criando cópia de segurança do arquivo /etc/svxlink/svxlink.conf\n");
-		system("sudo cp /etc/svxlink/svxlink.conf /etc/svxlink/svxlink.conf.bkp");
-		printf("   Concluído!\n");
-	    } else
-	    if (fileExists("/etc/svxlink/svxlink.conf.bkp")==1)
-	    {
-		printf("   O arquivo svxlink.conf já foi alterado anteriormente.\n");
-		printf("   Deseja restaurar a cópia do arquivo original?\n");
-
-		if(decision2Options()==1)
-		{
-		    printf("   Restaurando a cópia arquivo original...\n");
-		    system("sudo cp /etc/svxlink/svxlink.conf.bkp /etc/svxlink/svxlink.conf");
-		    printf("   A cópia não é mais necessária. Removendo...\n");
-		    system("sudo rm /etc/svxlink/svxlink.conf.bkp");
-		    printf("   Concluído!\n");
-		} else
-		printf("   Deseja realizar a configuração manualmente?\n");
-		if(decision2Options()==1)
-		{
-		    system("sudo nano /etc/svxlink/svxlink.conf");
-		}
-	    };
-
-	    sleep(TMP);
-
-	    if(fileExists("/etc/svxlink/svxlink.d/ModuleEchoLink.conf.bkp")==0)
-	    {
-		printf("   Não foi encontrada nenhuma cópia de segurança de /etc/svxlink/svxlink.d/ModuleEchoLink.conf\n");
-		printf("   Criando cópia de segurança do arquivo /etc/svxlink/svxlink.d/ModuleEchoLink.conf\n");
-		system("sudo cp /etc/svxlink/svxlink.d/ModuleEchoLink.conf /etc/svxlink/svxlink.d/ModuleEchoLink.conf.bkp");
-		printf("   Concluído!\n");
-	    } else
-	    if(fileExists("/etc/svxlink/svxlink.d/ModuleEchoLink.conf.bkp")==1)
-	    {
-		printf("   O arquivo ModuleEchoLink.conf já foi alterado anteriormente.\n");
-		printf("   Deseja restaurar a cópia do arquivo original?\n");
-
-		if(decision2Options()==1)
-		{
-		    printf("   Restaurando a cópia do arquivo original...\n");
-		    system("sudo cp /etc/svxlink/svxlink.d/ModuleEchoLink.conf.bkp /etc/svxlink/svxlink.d/ModuleEchoLink.conf");
-		    printf("   A cópia não é mais necessária. Removendo...\n");
-		    system("sudo rm /etc/svxlink/svxlink.d/ModuleEchoLink.conf.bkp");
-		    printf("   Concluído!\n");
-		} else
-		printf("   Deseja realizar a configuração manualmente?\n");
-		if(decision2Options()==1)
-		{
-		    system("sudo nano /etc/svxlink/svxlink.d/ModuleEchoLink.conf");
-		}
-	    };
+			if(fileExists("/etc/svxlink/svxlink.conf.bkp")==0)
+			{
+				printf("   Não foi encontrada nenhuma cópia de segurança de /etc/svxlink/svxlink.conf\n");
+				printf("   Criando cópia de segurança do arquivo /etc/svxlink/svxlink.conf\n");
+				system("sudo cp /etc/svxlink/svxlink.conf /etc/svxlink/svxlink.conf.bkp");
+				printf("   Concluído!\n");
 		
-		sleep(TMP);
+				fflush(stdin); //Limpa o buffer do teclado para evitar erros
+				printf("   Você está configurando um link ou repetidor?\n");
+				printf("   Digite L para LINK ou R para REPETIDOR: ");
+				scanf("%d", &type); //Aguarda a escolha do usuário
+				type = toupper(type); // Transforma tudo em maiúsculas
+				getchar(); //Realiza uma pausa para que dê tempo para o usuário inserir a opção
+		
+				fflush(stdin); //Limpa o buffer do teclado para evitar erros
+				printf("   Informe seu indicativo: ");
+				scanf("%d", &CALLSIGN); //Aguarda a escolha do usuário
+				CALLSIGN = toupper(CALLSIGN); // Transforma tudo em maiúsculas
+				getchar(); //Realiza uma pausa para que dê tempo para o usuário inserir a opção
+		
+				fflush(stdin); //Limpa o buffer do teclado para evitar erros
+				printf("   Informe sua senha do Echolink: ");
+				scanf("%d", &PASSWORD); //Aguarda a escolha do usuário
+				getchar(); //Realiza uma pausa para que dê tempo para o usuário inserir a opção
+				
+				if (type == "R")
+				{
+					StreamReader sr = new StreamReader("/etc/svxlink/svxlink.conf");
+					StringBuilder sb = new StringBuilder();
 
-	    if(fileExists("/etc/rc.local.bkp")==0)
-	    {
-		printf("   Não foi encontrada nenhuma cópia de segurança de /etc/rc.local\n");
-		printf("   Criando cópia de segurança do arquivo /etc/rc.local\n");
-		system("sudo cp /etc/rc.local /etc/rc.local.bkp");
-		printf("   Concluído!\n");
-	    } else
-	    if(fileExists("/etc/rc.local.bkp")==1)
-	    {
-		printf("   O arquivo /etc/rc.local já foi alterado anteriormente.\n");
-		printf("   Deseja restaurar a cópia do arquivo original?\n");
+					while (!sr.EndOfStream)
+					{
+						string s = sr.ReadLine();
+						if (s.IndexOf(LOGICS=SimplexLogic) > -1)
+						{
+							s = s.Replace(LOGICS=SimplexLogic, LOGICS=RepeaterLogic);
+						}
+						sb.AppendLine(s);
+					}
+					sr.Close();
 
-		if(decision2Options()==1)
-		{
-		    printf("   Restaurando a cópia do arquivo original...\n");
-		    system("sudo cp /etc/rc.local.bkp /etc/rc.local");
-		    printf("   A cópia não é mais necessária. Removendo...\n");
-		    system("sudo rm /etc/rc.local.bkp");
-		    printf("   Concluído!\n");
-		} else
-		printf("   Deseja realizar a configuração manualmente?\n");
-		if(decision2Options()==1)
-		{
-		    system("sudo nano /etc/rc.local");
-		}
-	    }
+					StreamWriter sw = new StreamWriter("/etc/svxlink/svxlink.conf");
+					sw.Write(sb);
 
-	    printf("\n\n   Terminado!\n\n");
+					sw.Close();
+				}
+				
+				
+			} else
+			if (fileExists("/etc/svxlink/svxlink.conf.bkp")==1)
+			{
+				printf("   O arquivo svxlink.conf já foi alterado anteriormente.\n");
+				printf("   Deseja restaurar a cópia do arquivo original?\n");
+
+				if(decision2Options()==1)
+				{
+					printf("   Restaurando a cópia arquivo original...\n");
+					system("sudo cp /etc/svxlink/svxlink.conf.bkp /etc/svxlink/svxlink.conf");
+					printf("   A cópia não é mais necessária. Removendo...\n");
+					system("sudo rm /etc/svxlink/svxlink.conf.bkp");
+					printf("   Concluído!\n");
+				} else
+				printf("   Deseja realizar a configuração manualmente?\n");
+				if(decision2Options()==1)
+				{
+					system("sudo nano /etc/svxlink/svxlink.conf");
+				}
+			};
+
+			sleep(TMP);
+
+			if(fileExists("/etc/svxlink/svxlink.d/ModuleEchoLink.conf.bkp")==0)
+			{
+				printf("   Não foi encontrada nenhuma cópia de segurança de /etc/svxlink/svxlink.d/ModuleEchoLink.conf\n");
+				printf("   Criando cópia de segurança do arquivo /etc/svxlink/svxlink.d/ModuleEchoLink.conf\n");
+				system("sudo cp /etc/svxlink/svxlink.d/ModuleEchoLink.conf /etc/svxlink/svxlink.d/ModuleEchoLink.conf.bkp");
+				printf("   Concluído!\n");
+			} else
+			if(fileExists("/etc/svxlink/svxlink.d/ModuleEchoLink.conf.bkp")==1)
+			{
+				printf("   O arquivo ModuleEchoLink.conf já foi alterado anteriormente.\n");
+				printf("   Deseja restaurar a cópia do arquivo original?\n");
+
+				if(decision2Options()==1)
+				{
+					printf("   Restaurando a cópia do arquivo original...\n");
+					system("sudo cp /etc/svxlink/svxlink.d/ModuleEchoLink.conf.bkp /etc/svxlink/svxlink.d/ModuleEchoLink.conf");
+					printf("   A cópia não é mais necessária. Removendo...\n");
+					system("sudo rm /etc/svxlink/svxlink.d/ModuleEchoLink.conf.bkp");
+					printf("   Concluído!\n");
+				} else
+				printf("   Deseja realizar a configuração manualmente?\n");
+				if(decision2Options()==1)
+				{
+					system("sudo nano /etc/svxlink/svxlink.d/ModuleEchoLink.conf");
+				}
+			};
+		
+			sleep(TMP);
+
+			if(fileExists("/etc/rc.local.bkp")==0)
+			{
+				printf("   Não foi encontrada nenhuma cópia de segurança de /etc/rc.local\n");
+				printf("   Criando cópia de segurança do arquivo /etc/rc.local\n");
+				system("sudo cp /etc/rc.local /etc/rc.local.bkp");
+				printf("   Concluído!\n");
+			} else
+			if(fileExists("/etc/rc.local.bkp")==1)
+			{
+				printf("   O arquivo /etc/rc.local já foi alterado anteriormente.\n");
+				printf("   Deseja restaurar a cópia do arquivo original?\n");
+
+				if(decision2Options()==1)
+				{
+					printf("   Restaurando a cópia do arquivo original...\n");
+					system("sudo cp /etc/rc.local.bkp /etc/rc.local");
+					printf("   A cópia não é mais necessária. Removendo...\n");
+					system("sudo rm /etc/rc.local.bkp");
+					printf("   Concluído!\n");
+				} else
+				printf("   Deseja realizar a configuração manualmente?\n");
+				if(decision2Options()==1)
+				{
+					system("sudo nano /etc/rc.local");
+				}
+			};
+
+			printf("\n\n   Terminado!\n\n");
 		
         }
 
         else if (Opt == 9)
         {
-	    system("chromium-browser wp.me/p1Srmy-9n");
+			system("chromium-browser wp.me/p1Srmy-9n");
         }
 
         else if (Opt == 10)
@@ -470,7 +509,7 @@ int main(void)
 
         else if (Opt == 11)
         {
-	    system("chromium-browser conferenciaamazonica.wordpress.com");
+			system("chromium-browser conferenciaamazonica.wordpress.com");
         }
 
         else if (Opt == 0)
@@ -481,7 +520,7 @@ int main(void)
         else if (Opt > 11)
         {
             printf("\n\n                                 Opção Inválida!\n\n\n\n\n\n\n");
-	    sleep(TMP);
+			sleep(TMP);
         }
 
     } while (Opt != 0);
