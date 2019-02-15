@@ -390,8 +390,6 @@ int main(void)
 				}
 			};
 
-			sleep(TMP);
-
 			if(fileExists("/etc/svxlink/svxlink.d/ModuleEchoLink.conf.bkp")==0)
 			{
 				printf("   Não foi encontrada nenhuma cópia de segurança de /etc/svxlink/svxlink.d/ModuleEchoLink.conf\n");
@@ -418,8 +416,6 @@ int main(void)
 					system("sudo nano /etc/svxlink/svxlink.d/ModuleEchoLink.conf");
 				}
 			};
-		
-			sleep(TMP);
 
 			if(fileExists("/etc/rc.local.bkp")==0)
 			{
@@ -448,7 +444,9 @@ int main(void)
 				}
 			};
 
-			printf("\n\n   Terminado!\n\n");
+			printf("\n\n   Terminado! Aguarde...\n\n");
+			printf("\n\n   O processo a seguir apresenta melhores resultados se os arquivos ainda não tiverem sido alterados. VOcê pode ainda a qualquer momento repetir o menu e editar os arquivos manualmente...\n\n");
+			system("sudo python configuration-assistent.py");
 		
         }
 

@@ -3,7 +3,7 @@
 #
 # Otimização do sistema operacional no Pi para SVXLINK
 #
-###################################################S68
+######################################################
 # Autor: Airam Saile
 # Indicativo: PU8ASR / PX8C1730 / PP8004SWL
 # E-Mail: airamcosta@gmail.com
