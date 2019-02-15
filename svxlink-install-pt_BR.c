@@ -445,7 +445,7 @@ int main(void)
 			};
 
 			printf("\n\n   Terminado! Aguarde...\n\n");
-			printf("\n\n   O processo a seguir apresenta melhores resultados se os arquivos ainda não tiverem sido alterados. VOcê pode ainda a qualquer momento repetir o menu e editar os arquivos manualmente...\n\n");
+			printf("\n\n   O processo a seguir apresenta melhores resultados se os arquivos ainda não\ntiverem sido alterados. Você pode ainda a qualquer momento repetir o menu\ne editar os arquivos manualmente...\n\n");
 			system("sudo python configuration-assistent.py");
 		
         }
