@@ -33,7 +33,7 @@ Depois é só seguir as etapas da instalação e se o Pi reiniciar, repetir o co
 Após a conclusão da instalação, a configuração do SVXLINK deve ser feita manualmente, por enquanto. Brevemente esperamos automativar tudo.
 
 Acredito que possamos popularizar essa tecnologia e reduzir custos para manter um link no ar 24 horas por dia.
-Comaprtilhe!
+Compartilhe!
 
 Este texto está em Português do Brasil e pretendemos disponibilizar tambem em outros idiomas.
 Grupo de discussão oficial sobre Echolink no Raspberry no Whatsapp - https://goo.gl/ZHkPSw
