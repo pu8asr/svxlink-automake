@@ -54,11 +54,11 @@ if (type == "L"):
 			while 'alsa:plughw:0' in newText:
 				newText=newText.replace('alsa:plughw:0', 'alsa:plughw:1')
 		
-			while 'PTT_TYPE=NONE' in newText:
-				newText=newText.replace('PTT_TYPE=NONE', 'PTT_TYPE=GPIO')
-		
 			while 'PTT_PORT=/dev/ttyS0' in newText:
-				newText=newText.replace('PTT_PORT=/dev/ttyS0', 'PTT_PORT=gpio17')
+				newText=newText.replace('PTT_PORT=/dev/ttyS0', 'PTT_PORT=GPIO')
+			
+			while 'PTT_PIN=DTRRTS' in newText:
+				newText=newText.replace('PTT_PIN=DTRRTS', 'PTT_PIN=gpio17')
  
 		with open(svxlink, "w") as f:
 			f.write(newText)
@@ -137,6 +137,7 @@ echo 0 > /sys/class/gpio/gpio17/value
 #Substitui /var/spool/svxlink que é temporário.
 cd /var/spool
 tar zxvf svxlink.tgz
+sudo chmod 777 /var/spool/svxlink/voice_mail
 		
 svxlink
 		
@@ -145,7 +146,7 @@ exit 0"""                     # Termina o texto
 		initial.writelines(startconfig)
 		initial.close() # Fecha o arquivo
 
-		print("Seu link está configurado para utilizar acionar o PTT utilizando a porta\nGPIO 17 (pinos 11 e 9). Seu Raspberry se conectará no sistema EchoLink quando\nvocê ligá-lo.")
+		print("Seu link está configurado para acionar o PTT utilizando a porta\nGPIO 17 (pinos 11 e 9). Seu Raspberry se conectará no sistema EchoLink quando\nvocê ligá-lo.")
 else:
 	if (type == "R"):
 		# svxlink.conf
@@ -161,11 +162,11 @@ else:
 			while 'alsa:plughw:0' in newText:
 				newText=newText.replace('alsa:plughw:0', 'alsa:plughw:1')
 		
-			while 'PTT_TYPE=NONE' in newText:
-				newText=newText.replace('PTT_TYPE=NONE', 'PTT_TYPE=GPIO')
-		
 			while 'PTT_PORT=/dev/ttyS0' in newText:
-				newText=newText.replace('PTT_PORT=/dev/ttyS0', 'PTT_PORT=gpio17')
+				newText=newText.replace('PTT_PORT=/dev/ttyS0', 'PTT_PORT=GPIO')
+			
+			while 'PTT_PIN=DTRRTS' in newText:
+				newText=newText.replace('PTT_PIN=DTRRTS', 'PTT_PIN=gpio17')
  
 		with open(svxlink, "w") as f:
 			f.write(newText)
@@ -244,6 +245,7 @@ echo 0 > /sys/class/gpio/gpio17/value
 #Substitui /var/spool/svxlink que é temporário.
 cd /var/spool
 tar zxvf svxlink.tgz
+sudo chmod 777 /var/spool/svxlink/voice_mail
 		
 svxlink
 		
@@ -252,7 +254,7 @@ exit 0"""                     # Termina o texto
 		initial.writelines(startconfig)
 		initial.close() # Fecha o arquivo
 		
-		print("Seu repetidor está configurado para utilizar acionar o PTT utilizando a porta\nGPIO 17 (pinos 11 e 9). Seu Raspberry se conectará no sistema EchoLink quando\nvocê ligá-lo.")
+		print("Seu repetidor está configurado para acionar o PTT utilizando a porta\nGPIO 17 (pinos 11 e 9). Seu Raspberry se conectará no sistema EchoLink quando\nvocê ligá-lo.")
 		
 	else:
 		print("Você não informou um formato válido!\nTodo o esforço para desenvolver um sistema e você ainda consegue fazer errado?!\nPresta atenção pelo amor de Deus...")
