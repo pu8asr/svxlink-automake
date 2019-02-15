@@ -37,3 +37,5 @@ Comaprtilhe!
 
 Este texto está em Português do Brasil e pretendemos disponibilizar tambem em outros idiomas.
 Grupo de discussão oficial sobre Echolink no Raspberry no Whatsapp - https://goo.gl/ZHkPSw
+
+Este instalador simplifica o processo exibido neste cruso em vídeo - https://goo.gl/MGqJ5t
