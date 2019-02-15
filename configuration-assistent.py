@@ -137,6 +137,7 @@ echo 0 > /sys/class/gpio/gpio17/value
 #Substitui /var/spool/svxlink que é temporário.
 cd /var/spool
 tar zxvf svxlink.tgz
+sudo chmod 777 /var/spool/svxlink/voice_mail
 		
 svxlink
 		
@@ -244,6 +245,7 @@ echo 0 > /sys/class/gpio/gpio17/value
 #Substitui /var/spool/svxlink que é temporário.
 cd /var/spool
 tar zxvf svxlink.tgz
+sudo chmod 777 /var/spool/svxlink/voice_mail
 		
 svxlink
 		
