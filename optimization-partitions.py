@@ -30,3 +30,4 @@ tmpfs    /var/spool/svxlink    tmpfs    defaults,noatime,nosuid,size=100m    0 0
 
 fstab.writelines(textfstab)
 fstab.close() # Fecha o arquivo
+print("\nAlguns diretórios/pastas serão utilizados\nde forma temporária durante a execução do sistema.\nIsso evita que o espaço no SDCard seja rapidamente\nocupado com a crescente inserção de informações no\narquivo de log o que pode ocasionar inclusive a\ncorrupção de dados.")
