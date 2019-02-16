@@ -27,3 +27,4 @@ max_usb_current=1
 
 boot.writelines(textboot)
 boot.close() # Fecha o arquivo
+print("\nAs portas USB do seu Pi foram configuradas para\nlimitar a voltagem a 1 volt.\n")
