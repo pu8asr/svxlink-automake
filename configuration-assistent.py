@@ -16,13 +16,12 @@
 # /etc/rc.local
 ######################################################
 
+# Arquivos que serão editados com este script
 svxlink = "/etc/svxlink/svxlink.conf"
 ModuleEchoLink = "/etc/svxlink/svxlink.d/ModuleEchoLink.conf"
 start = "/etc/rc.local"
 
-print("Você está configurando um LINK ou um REPETIDOR?")
-type = raw_input("Informe L para Link ou R para Repetidor: ")
-type = type.upper()
+# Perguntas básicas para realizar a configuração
 qra = raw_input("Qual seu nome? ")
 qra = qra.upper()
 callsign = raw_input("Qual seu indicativo? ")
@@ -39,95 +38,23 @@ transceiver = transceiver.upper()
 antenna = raw_input("Informe o fabricante/modelo da sua antena: ")
 antenna = antenna.upper()
 
-# Realiza as alterações nos arquivos
-if (type == "L"):
-	# svxlink.conf
-		with open(svxlink, 'U') as f:
-			newText=f.read()
-			
-			while 'LOGICS=RepeaterLogic' in newText:
-				newText=newText.replace('LOGICS=RepeaterLogic', 'LOGICS=SimplexLogic')
- 
-			while 'MYCALL' in newText:
-				newText=newText.replace('MYCALL', callsign)
- 
-			while 'alsa:plughw:0' in newText:
-				newText=newText.replace('alsa:plughw:0', 'alsa:plughw:1')
+# Função que configura no boot as portas GPIO e o inío automático do SVXLINK
+def boot():
+	# rc.local
+	with open(start, 'U') as f:
+		newText=f.read() 
+		while 'exit 0' in newText:
+			newText=newText.replace('exit 0', '') 
+	with open(start, "w") as f:
+		f.write(newText)
 		
-			while 'PTT_PORT=/dev/ttyS0' in newText:
-				newText=newText.replace('PTT_PORT=/dev/ttyS0', 'PTT_PORT=GPIO')
-			
-			while 'PTT_PIN=DTRRTS' in newText:
-				newText=newText.replace('PTT_PIN=DTRRTS', 'PTT_PIN=gpio17')
- 
-		with open(svxlink, "w") as f:
-			f.write(newText)
-		# ModuleEchoLink.conf
-		with open(ModuleEchoLink, 'U') as f:
-			newText=f.read()
- 
-			while 'MYCALL' in newText:
-				newText=newText.replace('MYCALL', callsign)
-			
-			while '-R' in newText:
-				newText=newText.replace('-R', '-L')
- 
-			while 'MyPass' in newText:
-				newText=newText.replace('MyPass', password)
-		
-			while 'MyName' in newText:
-				newText=newText.replace('MyName', qra)
-		
-			while '[Svx] Fq, MyTown' in newText:
-				newText=newText.replace('[Svx] Fq, MyTown', qth)
-			
-			while 'You have connected to a SvxLink node' in newText:
-				newText=newText.replace('You have connected to a SvxLink node', 'Você está conectado a um dispositivo Pi com SVXLINK')
-				
-			while 'a voice services system for Linux with EchoLink' in newText:
-				newText=newText.replace('a voice services system for Linux with EchoLink', 'um sistema de suporte a voz sobre IP para')
-			
-			while 'support.' in newText:
-				newText=newText.replace('support.', 'Linux com EchoLink')
-			
-			while 'Check out http://svxlink.sf.net/ for more info' in newText:
-				newText=newText.replace('Check out http://svxlink.sf.net/ for more info', 'Acesse https://goo.gl/MGqJ5t para mais informações')
-			
-			while 'My_QTH' in newText:
-				newText=newText.replace('My_QTH', qth)
-			
-			while 'Simplex link on ???.???' in newText:
-				newText=newText.replace('Simplex link on ???.???', qrg)
-			
-			while 'My_CTCSS_fq_if_any' in newText:
-				newText=newText.replace('My_CTCSS_fq_if_any', ctcss)
-			
-			while 'My_transceiver_type' in newText:
-				newText=newText.replace('My_transceiver_type', transceiver)
-			
-			while 'My_antenna_brand/type/model' in newText:
-				newText=newText.replace('My_antenna_brand/type/model', antenna)
- 
-		with open(ModuleEchoLink, "w") as f:
-			f.write(newText)
-		
-		# rc.local
-		with open(start, 'U') as f:
-			newText=f.read()
- 
-			while 'exit 0' in newText:
-				newText=newText.replace('exit 0', '')
- 
-		with open(start, "w") as f:
-			f.write(newText)
-		
-		# Acrescenta ostras configurações
-		initial = open(start, 'r+')
-		initial.readlines()
-		# Imprime o conteudo
+	# Acrescenta ostras configurações
+	initial = open(start, 'r+')
+	initial.readlines()
+	# Imprime o conteudo
 
-		# Texto a ser inserido no arquivo
-		startconfig = """# Configurações GPIO paraacionamento do PTT
+	# Texto a ser inserido no arquivo
+	startconfig = """# Configurações GPIO paraacionamento do PTT
 # PTT GPIO17 (pino 11) -- Éselecionado o pino 11
 # porque o pino 9 é GND (e fica ao lado do 11)
 echo 17 > /sys/class/gpio/export
@@ -141,121 +68,184 @@ sudo chmod 777 /var/spool/svxlink/voice_mail
 		
 svxlink
 		
-exit 0"""                     # Termina o texto
+exit 0"""                     # Fim o texto a ser inserido no arquivo
 
-		initial.writelines(startconfig)
-		initial.close() # Fecha o arquivo
+	initial.writelines(startconfig)
+	initial.close() # Fecha o arquivo
 
-		print("Seu link está configurado para acionar o PTT utilizando a porta\nGPIO 17 (pinos 11 e 9). Seu Raspberry se conectará no sistema EchoLink quando\nvocê ligá-lo.")
-else:
-	if (type == "R"):
+# Chama a atenção do usuário na escolha do tipo de estação que está sendo configurada
+def attention_autoconnect():
+	print("\nVocê não informou uma opção válida!\nParece que você não esta prestando atenção.\nTodo o esforço para desenvolver um sistema e você ainda consegue fazer errado?!\nEste assistente não advinha, portanto, presta atenção!\n")
+	autoconnect()
+	
+# Definindo ou não configurações de autoconexão
+def autoconnect():
+	print("Deseja se conectar automaticamente em alguma conferência/estação?")
+	autoconnect = raw_input("Informe S para Link ou N para Repetidor: ")
+	autoconnect = autoconnect.upper()
+	#Verifica a resposta do usuário
+	if (autoconnect == "S"):
+		# Instruções ao usuário
+		print("Os números de nó do Echolink são compostos apenas de números.\nSão aqueles números que você usa para se conectar\natravés de comandos DTMF pelo teclado do rádio.")
+		print("Por exemplo, o número de nó da Conferência *AMAZON* é 362210")
+		print("Os números de nó de todas as estações do EchoLink podem ser\nobitidos em https://secure.echolink.org/logins.jsp")
+		# Solicita entrada
+		nodenumber = raw_input("Informe o número do nó que deseja se conectar no EchoLink: ")
+		nodenumber = nodenumber.upper()
+		# Edita o arquivo
+		# ModuleEchoLink.conf
+		with open(ModuleEchoLink, 'U') as f:
+			newText=f.read() 
+			while '#AUTOCON_ECHOLINK_ID=' in newText:
+				newText=newText.replace('#AUTOCON_ECHOLINK_ID=', 'AUTOCON_ECHOLINK_ID=')			
+			while '9999' in newText:
+				newText=newText.replace('9999', nodenumber) 
+			while 'MyPass' in newText:
+				newText=newText.replace('MyPass', password)		
+			while '#AUTOCON_TIME' in newText:
+				newText=newText.replace('#AUTOCON_TIME', 'AUTOCON_TIME') 
+		with open(ModuleEchoLink, "w") as f:
+			f.write(newText)
+		print("\nA configuração de autoconexão para o nó do EchoLink informado foi concluída!\n")
+	else:
+		if (autoconnect == "N"):
+			# Instruções ao usuário
+			print("\nInfelizmente não concluímos esta função!\n")
+		else:
+			attention_autoconnect()
+
+# Chama a atenção do usuário na escolha do tipo de estação que está sendo configurada
+def attention_type():
+	print("\nVocê não informou uma opção válida!\nTodo o esforço para desenvolver um sistema e você ainda consegue fazer errado?!\nPresta atenção pelo amor de Deus...\n")
+	type()
+	
+# Verifica se é um Link ou Repetidor
+def type():
+	print("Você está configurando um LINK ou um REPETIDOR?")
+	type = raw_input("Informe L para Link ou R para Repetidor: ")
+	type = type.upper()
+	#Verifica a resposta do usuário
+	if (type == "L"):
+		# Edita os arquivos
+		
 		# svxlink.conf
 		with open(svxlink, 'U') as f:
-			newText=f.read()
-			
-			while 'LOGICS=SimplexLogic' in newText:
-				newText=newText.replace('LOGICS=SimplexLogic', 'LOGICS=RepeaterLogic')
- 
+			newText=f.read()			
+			while 'LOGICS=RepeaterLogic' in newText:
+				newText=newText.replace('LOGICS=RepeaterLogic', 'LOGICS=SimplexLogic') 
 			while 'MYCALL' in newText:
-				newText=newText.replace('MYCALL', callsign)
- 
+				newText=newText.replace('MYCALL', callsign) 
 			while 'alsa:plughw:0' in newText:
-				newText=newText.replace('alsa:plughw:0', 'alsa:plughw:1')
-		
+				newText=newText.replace('alsa:plughw:0', 'alsa:plughw:1')		
 			while 'PTT_PORT=/dev/ttyS0' in newText:
-				newText=newText.replace('PTT_PORT=/dev/ttyS0', 'PTT_PORT=GPIO')
-			
+				newText=newText.replace('PTT_PORT=/dev/ttyS0', 'PTT_PORT=GPIO')			
 			while 'PTT_PIN=DTRRTS' in newText:
-				newText=newText.replace('PTT_PIN=DTRRTS', 'PTT_PIN=gpio17')
- 
+				newText=newText.replace('PTT_PIN=DTRRTS', 'PTT_PIN=gpio17') 
 		with open(svxlink, "w") as f:
 			f.write(newText)
+		
 		# ModuleEchoLink.conf
 		with open(ModuleEchoLink, 'U') as f:
-			newText=f.read()
- 
+			newText=f.read() 
 			while 'MYCALL' in newText:
-				newText=newText.replace('MYCALL', callsign)
-			
-			while '-L' in newText:
-				newText=newText.replace('-L', '-R')
- 
+				newText=newText.replace('MYCALL', callsign)			
+			while '-R' in newText:
+				newText=newText.replace('-R', '-L') 
 			while 'MyPass' in newText:
-				newText=newText.replace('MyPass', password)
-		
+				newText=newText.replace('MyPass', password)		
 			while 'MyName' in newText:
-				newText=newText.replace('MyName', qra)
-		
+				newText=newText.replace('MyName', qra)		
 			while '[Svx] Fq, MyTown' in newText:
-				newText=newText.replace('[Svx] Fq, MyTown', qth)
-			
+				newText=newText.replace('[Svx] Fq, MyTown', qth)			
 			while 'You have connected to a SvxLink node' in newText:
-				newText=newText.replace('You have connected to a SvxLink node', 'Você está conectado a um dispositivo Pi com SVXLINK')
-				
+				newText=newText.replace('You have connected to a SvxLink node', 'Você está conectado a um dispositivo Pi com SVXLINK')				
 			while 'a voice services system for Linux with EchoLink' in newText:
-				newText=newText.replace('a voice services system for Linux with EchoLink', 'um sistema de suporte a voz sobre IP para')
-			
+				newText=newText.replace('a voice services system for Linux with EchoLink', 'um sistema de suporte a voz sobre IP para')			
 			while 'support.' in newText:
-				newText=newText.replace('support.', 'Linux com EchoLink')
-			
+				newText=newText.replace('support.', 'Linux com EchoLink')		
 			while 'Check out http://svxlink.sf.net/ for more info' in newText:
-				newText=newText.replace('Check out http://svxlink.sf.net/ for more info', 'Acesse https://goo.gl/MGqJ5t para mais informações')
-			
+				newText=newText.replace('Check out http://svxlink.sf.net/ for more info', 'Acesse https://goo.gl/MGqJ5t para mais informações')			
 			while 'My_QTH' in newText:
-				newText=newText.replace('My_QTH', qth)
-			
+				newText=newText.replace('My_QTH', qth)			
 			while 'Simplex link on ???.???' in newText:
-				newText=newText.replace('Simplex link on ???.???', qrg)
-			
+				newText=newText.replace('Simplex link on ???.???', qrg)			
 			while 'My_CTCSS_fq_if_any' in newText:
-				newText=newText.replace('My_CTCSS_fq_if_any', ctcss)
-			
+				newText=newText.replace('My_CTCSS_fq_if_any', ctcss)			
 			while 'My_transceiver_type' in newText:
-				newText=newText.replace('My_transceiver_type', transceiver)
-			
+				newText=newText.replace('My_transceiver_type', transceiver)			
 			while 'My_antenna_brand/type/model' in newText:
-				newText=newText.replace('My_antenna_brand/type/model', antenna)
- 
+				newText=newText.replace('My_antenna_brand/type/model', antenna) 
 		with open(ModuleEchoLink, "w") as f:
 			f.write(newText)
 		
-		# rc.local
-		with open(start, 'U') as f:
-			newText=f.read()
- 
-			while 'exit 0' in newText:
-				newText=newText.replace('exit 0', '')
- 
-		with open(start, "w") as f:
-			f.write(newText)
+		# Chama a função que irá escrever as configurações de boot
+		boot()
 		
-		# Acrescenta ostras configurações
-		initial = open(start, 'r+')
-		initial.readlines()
-		# Imprime o conteudo
+		print("\nSeu link está configurado para acionar o PTT utilizando a porta\nGPIO 17 (pinos 11 e 9).\nSeu Raspberry se conectará no sistema EchoLink quando você ligá-lo.\n")
 
-		# Texto a ser inserido no arquivo
-		startconfig = """# Configurações GPIO paraacionamento do PTT
-# PTT GPIO17 (pino 11) -- Éselecionado o pino 11
-# porque o pino 9 é GND (e fica ao lado do 11)
-echo 17 > /sys/class/gpio/export
-echo 'out' > /sys/class/gpio/gpio17/direction
-echo 0 > /sys/class/gpio/gpio17/value
-
-#Substitui /var/spool/svxlink que é temporário.
-cd /var/spool
-tar zxvf svxlink.tgz
-sudo chmod 777 /var/spool/svxlink/voice_mail
-		
-svxlink
-		
-exit 0"""                     # Termina o texto
-
-		initial.writelines(startconfig)
-		initial.close() # Fecha o arquivo
-		
-		print("Seu repetidor está configurado para acionar o PTT utilizando a porta\nGPIO 17 (pinos 11 e 9). Seu Raspberry se conectará no sistema EchoLink quando\nvocê ligá-lo.")
-		
 	else:
-		print("Você não informou um formato válido!\nTodo o esforço para desenvolver um sistema e você ainda consegue fazer errado?!\nPresta atenção pelo amor de Deus...")
+		if (type == "R"):
+			# Edita os arquivos
+		
+			# svxlink.conf
+			with open(svxlink, 'U') as f:
+				newText=f.read()			
+				while 'LOGICS=SimplexLogic' in newText:
+					newText=newText.replace('LOGICS=SimplexLogic', 'LOGICS=RepeaterLogic') 
+				while 'MYCALL' in newText:
+					newText=newText.replace('MYCALL', callsign) 
+				while 'alsa:plughw:0' in newText:
+					newText=newText.replace('alsa:plughw:0', 'alsa:plughw:1')		
+				while 'PTT_PORT=/dev/ttyS0' in newText:
+					newText=newText.replace('PTT_PORT=/dev/ttyS0', 'PTT_PORT=GPIO')			
+				while 'PTT_PIN=DTRRTS' in newText:
+					newText=newText.replace('PTT_PIN=DTRRTS', 'PTT_PIN=gpio17') 
+			with open(svxlink, "w") as f:
+				f.write(newText)
+			
+			# ModuleEchoLink.conf
+			with open(ModuleEchoLink, 'U') as f:
+				newText=f.read() 
+				while 'MYCALL' in newText:
+					newText=newText.replace('MYCALL', callsign)			
+				while '-L' in newText:
+					newText=newText.replace('-L', '-R') 
+				while 'MyPass' in newText:
+					newText=newText.replace('MyPass', password)		
+				while 'MyName' in newText:
+					newText=newText.replace('MyName', qra)		
+				while '[Svx] Fq, MyTown' in newText:
+					newText=newText.replace('[Svx] Fq, MyTown', qth)			
+				while 'You have connected to a SvxLink node' in newText:
+					newText=newText.replace('You have connected to a SvxLink node', 'Você está conectado a um dispositivo Pi com SVXLINK')				
+				while 'a voice services system for Linux with EchoLink' in newText:
+					newText=newText.replace('a voice services system for Linux with EchoLink', 'um sistema de suporte a voz sobre IP para')			
+				while 'support.' in newText:
+					newText=newText.replace('support.', 'Linux com EchoLink')			
+				while 'Check out http://svxlink.sf.net/ for more info' in newText:
+					newText=newText.replace('Check out http://svxlink.sf.net/ for more info', 'Acesse https://goo.gl/MGqJ5t para mais informações')			
+				while 'My_QTH' in newText:
+					newText=newText.replace('My_QTH', qth)			
+				while 'Simplex link on ???.???' in newText:
+					newText=newText.replace('Simplex link on ???.???', qrg)			
+				while 'My_CTCSS_fq_if_any' in newText:
+					newText=newText.replace('My_CTCSS_fq_if_any', ctcss)			
+				while 'My_transceiver_type' in newText:
+					newText=newText.replace('My_transceiver_type', transceiver)			
+				while 'My_antenna_brand/type/model' in newText:
+					newText=newText.replace('My_antenna_brand/type/model', antenna) 
+			with open(ModuleEchoLink, "w") as f:
+				f.write(newText)
+			
+			# Chama a função que irá escrever as configurações de boot
+			boot()
+		
+			print("\nSeu repetidor está configurado para acionar o PTT utilizando a porta\nGPIO 17 (pinos 11 e 9).\nSeu Raspberry se conectará no sistema EchoLink quando você ligá-lo.\n")
+			
+		else:
+			attention_type()
 
+# Inicia o programa chamando a 1ª função
+type()
+# Chama a 2º função que determina a autoconexão ou apenas em modo stand-by limitando a quantidade de conexões de entrada
+autoconnect()
