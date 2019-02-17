@@ -1,6 +1,15 @@
 # svxlink-automake
 
-EchoLink on Raspberry - Easy installation SVXLINK on Linux systems
+EchoLink no Raspberry - Fácil instalação do SVXLINK em sistemas Linux para plataforma embarcada ARM
+
+ATENÇÃO
+==============================================================================================================
+Este software foi desenvolvido para facilitar o processo de instalação e configuração do SVXLINK (Echolink para Linux) criado por Tobias Blomberg, radioamador com o indicativo SM0SVX.
+Este software tem por objetivo, instalar sempre a versão mais recente do SVXLINK no seu dispositivo Pi, otimizando todo o processo de instalação e configuração.
+Este software é protegido pela Lei de Direitos Autorais e de Propriedade Intelectual e por tratados internacionais.
+Não pode ser vendido ou comercializado. Sua distribuição é gratuita e o código-fonte é disponibilizado sob os termos de licença GNU/Linux 3.0 e distribuíbo exclusivamente pelo site github.com.
+Autor: Airam - PU8ASR (airamcosta@gmail.com)
+==============================================================================================================
 
 Meu nome é Airam, sou brasileiro e radioamador com o indicativo de minha estação PU8ASR.
 Atualmente mantenho um link do Echolink na cidade de Manaus, no coração da floresta amazônica.
