@@ -386,16 +386,77 @@ int main(void)
 
         else if (Opt == 8)
         {
-			imprime_tela_cabecalho(); //Imprime o cabeçalho da aplicação
-
-			printf("  ========================= CONFIGURAÇÃO DO SVXLINK ========================\n\n");
-		
-			printf("   Verificando a existência de cópia de segurança...\n");
+			if(fileExists("/etc/svxlink/svxlink.conf.bkp")==1)
+			{
+				imprime_tela_cabecalho(); //Imprime o cabeçalho da aplicação
+				printf("  ========================= CONFIGURAÇÃO DO SVXLINK ========================\n\n");			
+				printf("   O assistente o ajudará a configurar o seu LINK ou REPETIDOR.\n\n");		
+				printf("   Verificando a existência de cópia de segurança...\n");			
+				sleep(TMP);
+				
+				printf("   O arquivo svxlink.conf já foi alterado anteriormente.\n");
+				printf("   Deseja restaurar a cópia original do arquivo?\n");
+				if(decision2Options()==1)
+				{
+					printf("   Restaurando a cópia arquivo original...\n");
+					system("sudo cp /etc/svxlink/svxlink.conf.bkp /etc/svxlink/svxlink.conf");
+					printf("   A cópia não é mais necessária. Removendo...\n");
+					system("sudo rm /etc/svxlink/svxlink.conf.bkp");
+					printf("   Concluído!\n");
+					sleep(TMP);
+				};
+			};
 			
-			sleep(TMP);
+			if(fileExists("/etc/svxlink/svxlink.d/ModuleEchoLink.conf.bkp")==1)
+			{
+				imprime_tela_cabecalho(); //Imprime o cabeçalho da aplicação
+				printf("  ========================= CONFIGURAÇÃO DO SVXLINK ========================\n\n");			
+				printf("   O assistente o ajudará a configurar o seu LINK ou REPETIDOR.\n\n");		
+				printf("   Verificando a existência de cópia de segurança...\n");			
+				sleep(TMP);
+					
+				printf("   O arquivo ModuleEchoLink.conf já foi alterado anteriormente.\n");
+				printf("   Deseja restaurar a cópia original do arquivo?\n");
+				if(decision2Options()==1)
+				{
+					printf("   Restaurando a cópia do arquivo original...\n");
+					system("sudo cp /etc/svxlink/svxlink.d/ModuleEchoLink.conf.bkp /etc/svxlink/svxlink.d/ModuleEchoLink.conf");
+					printf("   A cópia não é mais necessária. Removendo...\n");
+					system("sudo rm /etc/svxlink/svxlink.d/ModuleEchoLink.conf.bkp");
+					printf("   Concluído!\n");
+					sleep(TMP);
+				};
+			};
+			
+			if(fileExists("/etc/rc.local.bkp")==1)
+			{
+				imprime_tela_cabecalho(); //Imprime o cabeçalho da aplicação
+				printf("  ========================= CONFIGURAÇÃO DO SVXLINK ========================\n\n");			
+				printf("   O assistente o ajudará a configurar o seu LINK ou REPETIDOR.\n\n");		
+				printf("   Verificando a existência de cópia de segurança...\n");			
+				sleep(TMP);
+				
+				printf("   O arquivo rc.local já foi alterado anteriormente.\n");
+				printf("   Deseja restaurar a cópia original do arquivo?\n");
+				if(decision2Options()==1)
+				{
+					printf("   Restaurando a cópia do arquivo original...\n");
+					system("sudo cp /etc/rc.local.bkp /etc/rc.local");
+					printf("   A cópia não é mais necessária. Removendo...\n");
+					system("sudo rm /etc/rc.local.bkp");
+					printf("   Concluído!\n");
+					sleep(TMP);
+				};
+			};
 
 			if(fileExists("/etc/svxlink/svxlink.conf.bkp")==0)
 			{
+				imprime_tela_cabecalho(); //Imprime o cabeçalho da aplicação
+				printf("  ========================= CONFIGURAÇÃO DO SVXLINK ========================\n\n");			
+				printf("   O assistente o ajudará a configurar o seu LINK ou REPETIDOR.\n\n");		
+				printf("   Verificando a existência de cópia de segurança...\n");			
+				sleep(TMP);
+				
 				printf("   Não foi encontrada nenhuma cópia de segurança de /etc/svxlink/svxlink.conf\n");
 				printf("   Criando cópia de segurança do arquivo /etc/svxlink/svxlink.conf\n");
 				system("sudo cp /etc/svxlink/svxlink.conf /etc/svxlink/svxlink.conf.bkp");
@@ -408,29 +469,16 @@ int main(void)
 					system("sudo nano /etc/svxlink/svxlink.conf");
 				};
 				sleep(TMP);
-			} else
-				printf("   O arquivo svxlink.conf já foi alterado anteriormente.\n");
-				printf("   Deseja restaurar a cópia original do arquivo?\n");
-				if(decision2Options()==1)
-				{
-					printf("   Restaurando a cópia arquivo original...\n");
-					system("sudo cp /etc/svxlink/svxlink.conf.bkp /etc/svxlink/svxlink.conf");
-					printf("   A cópia não é mais necessária. Removendo...\n");
-					system("sudo rm /etc/svxlink/svxlink.conf.bkp");
-					printf("   Concluído!\n");
-					sleep(TMP);
-				};
+			};
 				
-			imprime_tela_cabecalho(); //Imprime o cabeçalho da aplicação
-
-			printf("  ========================= CONFIGURAÇÃO DO SVXLINK ========================\n\n");
-
-			printf("   Verificando a existência de cópia de segurança...\n");
-			
-			sleep(TMP);
-			
 			if(fileExists("/etc/svxlink/svxlink.d/ModuleEchoLink.conf.bkp")==0)
 			{
+				imprime_tela_cabecalho(); //Imprime o cabeçalho da aplicação
+				printf("  ========================= CONFIGURAÇÃO DO SVXLINK ========================\n\n");			
+				printf("   O assistente o ajudará a configurar o seu LINK ou REPETIDOR.\n\n");		
+				printf("   Verificando a existência de cópia de segurança...\n");			
+				sleep(TMP);
+				
 				printf("   Não foi encontrada nenhuma cópia de segurança de /etc/svxlink/svxlink.d/ModuleEchoLink.conf\n");
 				printf("   Criando cópia de segurança do arquivo /etc/svxlink/svxlink.d/ModuleEchoLink.conf\n");
 				system("sudo cp /etc/svxlink/svxlink.d/ModuleEchoLink.conf /etc/svxlink/svxlink.d/ModuleEchoLink.conf.bkp");
@@ -443,29 +491,16 @@ int main(void)
 					system("sudo nano /etc/svxlink/svxlink.d/ModuleEchoLink.conf");
 				};
 				sleep(TMP);
-			} else
-				printf("   O arquivo ModuleEchoLink.conf já foi alterado anteriormente.\n");
-				printf("   Deseja restaurar a cópia original do arquivo?\n");
-				if(decision2Options()==1)
-				{
-					printf("   Restaurando a cópia do arquivo original...\n");
-					system("sudo cp /etc/svxlink/svxlink.d/ModuleEchoLink.conf.bkp /etc/svxlink/svxlink.d/ModuleEchoLink.conf");
-					printf("   A cópia não é mais necessária. Removendo...\n");
-					system("sudo rm /etc/svxlink/svxlink.d/ModuleEchoLink.conf.bkp");
-					printf("   Concluído!\n");
-					sleep(TMP);
-				};
-			
-			imprime_tela_cabecalho(); //Imprime o cabeçalho da aplicação
-
-			printf("  ========================= CONFIGURAÇÃO DO SVXLINK ========================\n\n");
-
-			printf("   Verificando a existência de cópia de segurança...\n");
-			
-			sleep(TMP);
+			};
 			
 			if(fileExists("/etc/rc.local.bkp")==0)
 			{
+				imprime_tela_cabecalho(); //Imprime o cabeçalho da aplicação
+				printf("  ========================= CONFIGURAÇÃO DO SVXLINK ========================\n\n");			
+				printf("   O assistente o ajudará a configurar o seu LINK ou REPETIDOR.\n\n");		
+				printf("   Verificando a existência de cópia de segurança...\n");			
+				sleep(TMP);
+				
 				printf("   Não foi encontrada nenhuma cópia de segurança de /etc/rc.local\n");
 				printf("   Criando cópia de segurança do arquivo /etc/rc.local\n");
 				system("sudo cp /etc/rc.local /etc/rc.local.bkp");
@@ -478,19 +513,8 @@ int main(void)
 					system("sudo nano /etc/rc.local");
 				};
 				sleep(TMP);
-			} else
-				printf("   O arquivo /etc/rc.local já foi alterado anteriormente.\n");
-				printf("   Deseja restaurar a cópia original do arquivo?\n");
-				if(decision2Options()==1)
-				{
-					printf("   Restaurando a cópia do arquivo original...\n");
-					system("sudo cp /etc/rc.local.bkp /etc/rc.local");
-					printf("   A cópia não é mais necessária. Removendo...\n");
-					system("sudo rm /etc/rc.local.bkp");
-					printf("   Concluído!\n");
-					sleep(TMP);
-				};
-
+			};
+			
 			if(fileExists("/etc/svxlink/svxlink.conf.bkp")==1)
 			{
 				if(fileExists("/etc/svxlink/svxlink.d/ModuleEchoLink.conf.bkp")==1)
@@ -498,27 +522,23 @@ int main(void)
 					if(fileExists("/etc/rc.local.bkp")==1)
 					{
 						imprime_tela_cabecalho(); //Imprime o cabeçalho da aplicação
-
 						printf("  ========================= CONFIGURAÇÃO DO SVXLINK ========================\n\n");
-
 						printf("   O assistente o ajudará a configurar o seu LINK ou REPETIDOR.\n\n");
-			
+						printf("   Verificando a existência de cópia de segurança...\n");			
+						printf("   O assistente apresenta melhores resultados se os arquivos ainda não\n   tiverem sido alterados.\n   Caso não funcione, escolha a opção 8 no menu principal novamente e restaure\n   as cópias originais dos arquivos que sofrerão aletrações.\n");
 						sleep(TMP);
-						
+						imprime_tela_cabecalho(); //Imprime o cabeçalho da aplicação
+						printf("  ========================= CONFIGURAÇÃO DO SVXLINK ========================\n\n");			
+						printf("   O assistente o ajudará a configurar o seu LINK ou REPETIDOR.\n\n");		
 						system("sudo python configuration-assistent.py");
 					}
 				}
 			} else
 			imprime_tela_cabecalho(); //Imprime o cabeçalho da aplicação
-
-			printf("  ========================= CONFIGURAÇÃO DO SVXLINK ========================\n\n");
-			
+			printf("  ========================= CONFIGURAÇÃO DO SVXLINK ========================\n\n");			
+			printf("   O assistente o ajudará a configurar o seu LINK ou REPETIDOR.\n\n");
 			printf("   Verificando a existência de cópia de segurança...\n");
-
-			sleep(TMP);
-			
-			printf("   Para garantir que possamos desfazer as alterações no futuro,\n   precisamos fazer cópias dos arquivos que sofrerão alterações.\n");
-			printf("   O assistente apresenta melhores resultados se os arquivos ainda não\n   tiverem sido alterados.\n   Escolha a opção 8 no menu principal novamente e certifique-se\n   de criar as cópias de segurança dos arquivos que sofrerão aletrações.\n");
+			printf("\n   Para garantir que possamos desfazer as alterações no futuro,\n   precisamos fazer cópias dos arquivos que sofrerão alterações.\n   Infelizmente não foi possível localizar estas cópias.\n   Escolha a opção 8 novamente no menu principal para tentar criar as cópias de segurança.\n");			
         }
 
         else if (Opt == 9)
