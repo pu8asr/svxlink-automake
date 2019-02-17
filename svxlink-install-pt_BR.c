@@ -33,7 +33,7 @@ void imprime_tela_cabecalho()
 {
     limpa_tela();
     printf("\n");
-    printf("   Desenvolvimento de Software da Conferência Amazônica            by PU8ASR\n");
+    printf("   Desenvolvimento de Software da Conferência Amazônica           by PU8ASR\n");
     printf("  ##########################################################################\n");
     printf("                             INSTALADOR DO SVXLINK\n");
     printf("                       (sempre a última versão no seu Pi)\n");
