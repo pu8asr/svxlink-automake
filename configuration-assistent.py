@@ -22,20 +22,20 @@ ModuleEchoLink = "/etc/svxlink/svxlink.d/ModuleEchoLink.conf"
 start = "/etc/rc.local"
 
 # Perguntas básicas para realizar a configuração
-qra = raw_input("Qual seu nome? ")
+qra = raw_input("   Qual seu nome? ")
 qra = qra.upper()
-callsign = raw_input("Qual seu indicativo? ")
+callsign = raw_input("   Qual seu indicativo? ")
 callsign = callsign.upper()
-password = raw_input("Informe sua senha do EchoLink: ")
-qth = raw_input("Informe sua cidade e sigla do estado. Ex: Manaus - AM ")
+password = raw_input("   Informe sua senha do EchoLink: ")
+qth = raw_input("   Informe sua cidade e sigla do estado. Ex: Manaus - AM ")
 qth = qth.upper()
-print("Para a próxima pergunta, observe o exemplo")
-qrg = raw_input("Informe a QRG de operação. Ex: 145.015 ")
-print("Para a próxima pergunta, observe o exemplo")
-ctcss = raw_input("Informe o Subtom ou deixe em branco se não houver. Ex: 67.0 ")
-transceiver = raw_input("Informe o fabricante/modelo do seu transceptor: ")
+print("   Para a próxima pergunta, observe o exemplo")
+qrg = raw_input("   Informe a QRG de operação. Ex: 145.015 ")
+print("   Para a próxima pergunta, observe o exemplo")
+ctcss = raw_input("   Informe o Subtom ou deixe em branco se não houver. Ex: 67.0 ")
+transceiver = raw_input("   Informe o fabricante/modelo do seu transceptor: ")
 transceiver = transceiver.upper()
-antenna = raw_input("Informe o fabricante/modelo da sua antena: ")
+antenna = raw_input("   Informe o fabricante/modelo da sua antena: ")
 antenna = antenna.upper()
 
 # Função que configura no boot as portas GPIO e o inío automático do SVXLINK
@@ -75,22 +75,22 @@ exit 0"""                     # Fim o texto a ser inserido no arquivo
 
 # Chama a atenção do usuário na escolha do tipo de estação que está sendo configurada
 def attention_autoconnect():
-	print("\nVocê não informou uma opção válida!\nParece que você não esta prestando atenção.\nTodo o esforço para desenvolver um sistema e você ainda consegue fazer errado?!\nEste assistente não advinha, portanto, presta atenção!\n")
+	print("\n   Você não informou uma opção válida!\n   Parece que você não esta prestando atenção.\n   Todo o esforço para desenvolver um sistema e você ainda consegue fazer errado?!\n   Este assistente não advinha, portanto, presta atenção!\n")
 	autoconnect()
 	
 # Definindo ou não configurações de autoconexão
 def autoconnect():
-	print("Deseja se conectar automaticamente em alguma conferência/estação?")
-	autoconnect = raw_input("Informe S para Link ou N para Repetidor: ")
+	print("   Deseja se conectar automaticamente em alguma conferência/estação?")
+	autoconnect = raw_input("   Informe S para Link ou N para Repetidor: ")
 	autoconnect = autoconnect.upper()
 	#Verifica a resposta do usuário
 	if (autoconnect == "S"):
 		# Instruções ao usuário
-		print("Os números de nó do Echolink são compostos apenas de números.\nSão aqueles números que você usa para se conectar\natravés de comandos DTMF pelo teclado do rádio.")
-		print("Por exemplo, o número de nó da Conferência *AMAZON* é 362210")
-		print("Os números de nó de todas as estações do EchoLink podem ser\nobitidos em https://secure.echolink.org/logins.jsp")
+		print("   Os números de nó do Echolink são compostos apenas de números.\n   São aqueles números que você usa para se conectar\n   através de comandos DTMF pelo teclado do rádio.")
+		print("   Por exemplo, o número de nó da Conferência *AMAZON* é 362210")
+		print("   Os números de nó de todas as estações do EchoLink podem ser\n   obitidos em https://secure.echolink.org/logins.jsp")
 		# Solicita entrada
-		nodenumber = raw_input("Informe o número do nó que deseja se conectar no EchoLink: ")
+		nodenumber = raw_input("   Informe o número do nó que deseja se conectar no EchoLink: ")
 		nodenumber = nodenumber.upper()
 		# Edita o arquivo
 		# ModuleEchoLink.conf
@@ -106,23 +106,23 @@ def autoconnect():
 				newText=newText.replace('#AUTOCON_TIME', 'AUTOCON_TIME') 
 		with open(ModuleEchoLink, "w") as f:
 			f.write(newText)
-		print("\nA configuração de autoconexão para o nó do EchoLink informado foi concluída!\n")
+		print("\n   A configuração de autoconexão para o nó do EchoLink informado foi concluída!\n")
 	else:
 		if (autoconnect == "N"):
 			# Instruções ao usuário
-			print("\nInfelizmente não concluímos esta função!\n")
+			print("\n   Infelizmente não concluímos esta função!\n")
 		else:
 			attention_autoconnect()
 
 # Chama a atenção do usuário na escolha do tipo de estação que está sendo configurada
 def attention_type():
-	print("\nVocê não informou uma opção válida!\nTodo o esforço para desenvolver um sistema e você ainda consegue fazer errado?!\nPresta atenção pelo amor de Deus...\n")
+	print("\n   Você não informou uma opção válida!\n   Todo o esforço para desenvolver um sistema e você ainda consegue fazer errado?!\n   Presta atenção pelo amor de Deus...\n")
 	type()
 	
 # Verifica se é um Link ou Repetidor
 def type():
-	print("Você está configurando um LINK ou um REPETIDOR?")
-	type = raw_input("Informe L para Link ou R para Repetidor: ")
+	print("   Você está configurando um LINK ou um REPETIDOR?")
+	type = raw_input("   Informe L para Link ou R para Repetidor: ")
 	type = type.upper()
 	#Verifica a resposta do usuário
 	if (type == "L"):
@@ -181,7 +181,7 @@ def type():
 		# Chama a função que irá escrever as configurações de boot
 		boot()
 		
-		print("\nSeu link está configurado para acionar o PTT utilizando a porta\nGPIO 17 (pinos 11 e 9).\nSeu Raspberry se conectará no sistema EchoLink quando você ligá-lo.\n")
+		print("\n   Seu link está configurado para acionar o PTT utilizando a porta\n   GPIO 17 (pinos 11 e 9).\n   Seu Raspberry se conectará no sistema EchoLink quando você ligá-lo.\n")
 
 	else:
 		if (type == "R"):
@@ -240,7 +240,7 @@ def type():
 			# Chama a função que irá escrever as configurações de boot
 			boot()
 		
-			print("\nSeu repetidor está configurado para acionar o PTT utilizando a porta\nGPIO 17 (pinos 11 e 9).\nSeu Raspberry se conectará no sistema EchoLink quando você ligá-lo.\n")
+			print("\n   Seu repetidor está configurado para acionar o PTT utilizando a porta\n   GPIO 17 (pinos 11 e 9).\n   Seu Raspberry se conectará no sistema EchoLink quando você ligá-lo.\n")
 			
 		else:
 			attention_type()
