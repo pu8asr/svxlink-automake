@@ -33,7 +33,7 @@ void imprime_tela_cabecalho()
 {
     limpa_tela();
     printf("\n");
-    printf("   Desenvolvimento de Software da Conferência Amazônica\n");
+    printf("   Desenvolvimento de Software da Conferência Amazônica            by PU8ASR\n");
     printf("  ##########################################################################\n");
     printf("                             INSTALADOR DO SVXLINK\n");
     printf("                       (sempre a última versão no seu Pi)\n");
@@ -62,7 +62,7 @@ void imprime_tela_abertura()
     printf("   Este software é protegido pela Lei de Direitos Autorais e de Propriedade\n");
     printf("   Intelectual. Não pode ser vendido ou comercializado. Sua distribuição é\n");
     printf("   gratuita e o código-fonte é disponibilizado sob os termos de licença\n");
-    printf("   GNU/Linux 3.0 distribuíbo pelo GitHub.com.\n\n"); //Se ativar a linha abaixo remover \n\n\n\n\n\n\n (7)
+    printf("   GNU/Linux 3.0 e distribuíbo exclusivamente pelo site github.com.\n\n"); //Se ativar a linha abaixo remover \n\n\n\n\n\n\n (7)
     printf("   Autor: Airam - PU8ASR (airamcosta@gmail.com)\n\n");
     printf("   O menu será exibido em %d segundos\n", TEMP);
 }
@@ -315,14 +315,19 @@ int main(void)
 			sleep(TMP);
 
 			system("cd /home/pi/Downloads");
-			system("wget https://github.com/sm0svx/svxlink/archive/master.tar.gz");
-			printf("\n\n   Arquivo master.tar.gz baixado com sucesso em /home/pi/Downloads\n");
-			printf("   Iniciando descompactação...\n\n");
-			system("tar -xvzf master.tar.gz");
-			printf("\n\n   Descompactação concluída!\n");
-			printf("\n\n   O arquivo master.tar.gz não é mais necessário. Iniciando exclusão...\n");
-			system("rm master.tar.gz");
-			printf("\n\n   Exclusão concluída!\n");
+			
+			if(fileExists("master.tar.gz")==0)
+			{
+				system("wget https://github.com/sm0svx/svxlink/archive/master.tar.gz");
+				printf("\n\n   Arquivo master.tar.gz baixado com sucesso em /home/pi/Downloads\n");
+			} else
+				if(fileExists("master.tar.gz")==1)
+				{
+					printf("   Iniciando descompactação...\n\n");
+					system("tar -xvzf master.tar.gz");
+					printf("\n\n   Descompactação concluída!\n");
+				};
+			
 			printf("   Iniciando instalação...\n\n");
 			printf("\n\n   Criando diretório de compilação...\n\n");
 			system("mkdir /home/pi/Downloads/svxlink-master/src/build");
@@ -333,22 +338,50 @@ int main(void)
 			printf("\n\n   Configurando SWAP para SVXLINK...\n\n");
 			system("cd /var/spool && sudo chmod 777 svxlink && sudo tar zcvf svxlink.tgz svxlink"); //Com o swap desativado o diretório do svxlink será apagado no boot e precisará ser reestabelecido
 			printf("\n\n   Instalando arquivos de áudio do SVXLINK\n\n");
-			system("cd /home/pi/Downloads && wget https://github.com/sm0svx/svxlink-sounds-en_US-heather/releases/download/14.08/svxlink-sounds-en_US-heather-16k-13.12.tar.bz2 && tar -jxvf svxlink-sounds-en_US-heather-16k-13.12.tar.bz2 && sudo mkdir /usr/share/svxlink/sounds/en_US && cd en_US-heather-16k && sudo cp -r * /usr/share/svxlink/sounds/en_US");
-			system("cd /home/pi/Downloads && wget https://github.com/pu8asr/svxlink-automake/raw/master/sounds-svxlink-16k-pt_BR-HELENA.tar.bz2 && tar -jxvf sounds-svxlink-16k-pt_BR-HELENA.tar.bz2 && cd en_US && sudo cp -r * /usr/share/svxlink/sounds/en_US");
-			printf("\n   Arquivos de ádio do SVXLINK instalados com sucesso!\n");
-			printf("\n\n   O arquivo svxlink-sounds-en_US-heather-16k-13.12.tar.bz2 e a pasta en_US-heather-16k não são mais necessários.\n");
-			printf("   Iniciando exclusão...\n");
-			system("cd /home/pi/Downloads");
-			system("rm svxlink-sounds-en_US-heather-16k-13.12.tar.bz2");
-			system("rm -r en_US-heather-16k");
-			system("rm sounds-svxlink-16k-pt_BR-HELENA.tar.bz2");
-			system("rm -r en_US");
-			printf("\n\n   Exclusão concluida!\n");
-			printf("\n\n   A pasta SVXLINK utilizada na instalação não é mais necessária.\n");
-			printf("   Iniciando exclusão...\n");
-			system("sudo rm -r svxlink-master");
-			printf("\n\n   Exclusão concluída!\n");
+			
+			if(fileExists("/home/pi/Downloads/svxlink-sounds-en_US-heather-16k-13.12.tar.bz2")==0)
+			{
+				system("cd /home/pi/Downloads && wget https://github.com/sm0svx/svxlink-sounds-en_US-heather/releases/download/14.08/svxlink-sounds-en_US-heather-16k-13.12.tar.bz2 && tar -jxvf svxlink-sounds-en_US-heather-16k-13.12.tar.bz2 && sudo mkdir /usr/share/svxlink/sounds/en_US && cd en_US-heather-16k && sudo cp -r * /usr/share/svxlink/sounds/en_US");
+			} else
+				if(fileExists("/home/pi/Downloads/svxlink-sounds-en_US-heather-16k-13.12.tar.bz2")==1)
+				{
+					system("cd /home/pi/Downloads && tar -jxvf svxlink-sounds-en_US-heather-16k-13.12.tar.bz2 && sudo mkdir /usr/share/svxlink/sounds/en_US && cd en_US-heather-16k && sudo cp -r * /usr/share/svxlink/sounds/en_US");
+				};
+			
+			if(fileExists("/home/pi/Downloads/sounds-svxlink-16k-pt_BR-HELENA.tar.bz2")==0)
+			{
+				system("cd /home/pi/Downloads && wget https://github.com/pu8asr/svxlink-automake/raw/master/sounds-svxlink-16k-pt_BR-HELENA.tar.bz2 && tar -jxvf sounds-svxlink-16k-pt_BR-HELENA.tar.bz2 && cd en_US && sudo cp -r * /usr/share/svxlink/sounds/en_US");
+			} else
+				if(fileExists("/home/pi/Downloads/sounds-svxlink-16k-pt_BR-HELENA.tar.bz2")==1)
+				{
+					system("cd /home/pi/Downloads && tar -jxvf sounds-svxlink-16k-pt_BR-HELENA.tar.bz2 && cd en_US && sudo cp -r * /usr/share/svxlink/sounds/en_US");
+				};
+
 			printf("\n\n   SVXLINK instalado e pronto para ser configurado!\n");
+			printf("\n\n   Os arquivos da instalação não são mais necessários.\n");
+			printf("\n\n   Deseja excluílos e liberar espaço?.\n");
+			if(decision2Options()==1)
+				{
+					printf("   Iniciando exclusão...\n");
+					system("cd /home/pi/Downloads");
+					printf("   Excluindo svxlink-sounds-en_US-heather-16k-13.12.tar.bz2\n");
+					system("rm svxlink-sounds-en_US-heather-16k-13.12.tar.bz2");
+					printf("\n\n   Exclusão concluida!\n");
+					printf("   Excluindo en_US-heather-16k\n");
+					system("rm -r en_US-heather-16k");
+					printf("\n\n   Exclusão concluida!\n");
+					printf("   Excluindo sounds-svxlink-16k-pt_BR-HELENA.tar.bz2\n");
+					system("rm sounds-svxlink-16k-pt_BR-HELENA.tar.bz2");
+					printf("\n\n   Exclusão concluida!\n");
+					printf("   Excluindo en_US\n");
+					system("rm -r en_US");
+					printf("\n\n   Exclusão concluida!\n");
+					printf("   Excluindo svxlink-master\n");
+					system("sudo rm -r svxlink-master");
+					printf("\n\n   Exclusão concluida!\n");
+					sleep(TMP);
+				} else printf("\n\n   Os arquivos e pastas serão mantidos em /home/pi/Downloads\n   Instalação concluída. Aguarde...\n   Retornando ao menu principal...\n");
+					
         }
 
         else if (Opt == 8)
@@ -356,10 +389,10 @@ int main(void)
 			imprime_tela_cabecalho(); //Imprime o cabeçalho da aplicação
 
 			printf("  ========================= CONFIGURAÇÃO DO SVXLINK ========================\n\n");
-
-			printf("   O assistente o ajudará a configurar o seu LINK ou REPETIDOR.\n\n");
 		
 			printf("   Verificando a existência de cópia de segurança...\n");
+			
+			sleep(TMP);
 
 			if(fileExists("/etc/svxlink/svxlink.conf.bkp")==0)
 			{
@@ -367,12 +400,14 @@ int main(void)
 				printf("   Criando cópia de segurança do arquivo /etc/svxlink/svxlink.conf\n");
 				system("sudo cp /etc/svxlink/svxlink.conf /etc/svxlink/svxlink.conf.bkp");
 				printf("   Concluído!\n\n");
+				sleep(TMP);
 				printf("   Deseja editar o arquivo manualmente, agora?\n");
 				printf("   Se preferir a ajuda do assistente, escolha 0\n");
 				if(decision2Options()==1)
 				{
 					system("sudo nano /etc/svxlink/svxlink.conf");
 				};
+				sleep(TMP);
 			} else
 				printf("   O arquivo svxlink.conf já foi alterado anteriormente.\n");
 				printf("   Deseja restaurar a cópia original do arquivo?\n");
@@ -383,15 +418,16 @@ int main(void)
 					printf("   A cópia não é mais necessária. Removendo...\n");
 					system("sudo rm /etc/svxlink/svxlink.conf.bkp");
 					printf("   Concluído!\n");
+					sleep(TMP);
 				};
 				
 			imprime_tela_cabecalho(); //Imprime o cabeçalho da aplicação
 
 			printf("  ========================= CONFIGURAÇÃO DO SVXLINK ========================\n\n");
 
-			printf("   O assistente o ajudará a configurar o seu LINK ou REPETIDOR.\n\n");
-		
 			printf("   Verificando a existência de cópia de segurança...\n");
+			
+			sleep(TMP);
 			
 			if(fileExists("/etc/svxlink/svxlink.d/ModuleEchoLink.conf.bkp")==0)
 			{
@@ -399,12 +435,14 @@ int main(void)
 				printf("   Criando cópia de segurança do arquivo /etc/svxlink/svxlink.d/ModuleEchoLink.conf\n");
 				system("sudo cp /etc/svxlink/svxlink.d/ModuleEchoLink.conf /etc/svxlink/svxlink.d/ModuleEchoLink.conf.bkp");
 				printf("   Concluído!\n\n");
+				sleep(TMP);
 				printf("   Deseja editar o arquivo manualmente, agora?\n");
 				printf("   Se preferir a ajuda do assistente, escolha 0\n");
 				if(decision2Options()==1)
 				{
 					system("sudo nano /etc/svxlink/svxlink.d/ModuleEchoLink.conf");
 				};
+				sleep(TMP);
 			} else
 				printf("   O arquivo ModuleEchoLink.conf já foi alterado anteriormente.\n");
 				printf("   Deseja restaurar a cópia original do arquivo?\n");
@@ -415,15 +453,16 @@ int main(void)
 					printf("   A cópia não é mais necessária. Removendo...\n");
 					system("sudo rm /etc/svxlink/svxlink.d/ModuleEchoLink.conf.bkp");
 					printf("   Concluído!\n");
+					sleep(TMP);
 				};
 			
 			imprime_tela_cabecalho(); //Imprime o cabeçalho da aplicação
 
 			printf("  ========================= CONFIGURAÇÃO DO SVXLINK ========================\n\n");
 
-			printf("   O assistente o ajudará a configurar o seu LINK ou REPETIDOR.\n\n");
-		
 			printf("   Verificando a existência de cópia de segurança...\n");
+			
+			sleep(TMP);
 			
 			if(fileExists("/etc/rc.local.bkp")==0)
 			{
@@ -431,12 +470,14 @@ int main(void)
 				printf("   Criando cópia de segurança do arquivo /etc/rc.local\n");
 				system("sudo cp /etc/rc.local /etc/rc.local.bkp");
 				printf("   Concluído!\n\n");
+				sleep(TMP);
 				printf("   Deseja editar o arquivo manualmente, agora?\n");
 				printf("   Se preferir a ajuda do assistente, escolha 0\n");
 				if(decision2Options()==1)
 				{
 					system("sudo nano /etc/rc.local");
 				};
+				sleep(TMP);
 			} else
 				printf("   O arquivo /etc/rc.local já foi alterado anteriormente.\n");
 				printf("   Deseja restaurar a cópia original do arquivo?\n");
@@ -447,12 +488,37 @@ int main(void)
 					printf("   A cópia não é mais necessária. Removendo...\n");
 					system("sudo rm /etc/rc.local.bkp");
 					printf("   Concluído!\n");
+					sleep(TMP);
 				};
 
-			printf("\n\n   Terminado! Aguarde...\n\n");
-			printf("\n\n   O processo a seguir apresenta melhores resultados se os arquivos ainda não\ntiverem sido alterados. Você pode ainda a qualquer momento repetir o menu\ne editar os arquivos manualmente...\n\n");
-			system("sudo python configuration-assistent.py");
-		
+			if(fileExists("/etc/svxlink/svxlink.conf.bkp")==1)
+			{
+				if(fileExists("/etc/svxlink/svxlink.d/ModuleEchoLink.conf.bkp")==1)
+				{
+					if(fileExists("/etc/rc.local.bkp")==1)
+					{
+						imprime_tela_cabecalho(); //Imprime o cabeçalho da aplicação
+
+						printf("  ========================= CONFIGURAÇÃO DO SVXLINK ========================\n\n");
+
+						printf("   O assistente o ajudará a configurar o seu LINK ou REPETIDOR.\n\n");
+			
+						sleep(TMP);
+						
+						system("sudo python configuration-assistent.py");
+					}
+				}
+			} else
+			imprime_tela_cabecalho(); //Imprime o cabeçalho da aplicação
+
+			printf("  ========================= CONFIGURAÇÃO DO SVXLINK ========================\n\n");
+			
+			printf("   Verificando a existência de cópia de segurança...\n");
+
+			sleep(TMP);
+			
+			printf("   Para garantir que possamos desfazer as alterações no futuro,\n   precisamos fazer cópias dos arquivos que sofrerão alterações.\n");
+			printf("   O assistente apresenta melhores resultados se os arquivos ainda não\n   tiverem sido alterados.\n   Escolha a opção 8 no menu principal novamente e certifique-se\n   de criar as cópias de segurança dos arquivos que sofrerão aletrações.\n");
         }
 
         else if (Opt == 9)
