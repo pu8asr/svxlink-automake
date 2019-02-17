@@ -106,7 +106,7 @@ def autoconnect():
 				newText=newText.replace('#AUTOCON_TIME', 'AUTOCON_TIME') 
 		with open(ModuleEchoLink, "w") as f:
 			f.write(newText)
-		print("\n   A configuração de autoconexão para o nó do EchoLink informado foi concluída!\n")
+		print("\n   A configuração de autoconexão para o nó do EchoLink informado foi concluída!\n   Aguarde...\n")
 	else:
 		if (autoconnect == "N"):
 			# Instruções ao usuário
@@ -146,35 +146,37 @@ def type():
 		
 		# ModuleEchoLink.conf
 		with open(ModuleEchoLink, 'U') as f:
-			newText=f.read() 
+			newText=f.read()
 			while 'MYCALL' in newText:
-				newText=newText.replace('MYCALL', callsign)			
+				newText=newText.replace('MYCALL', callsign)
 			while '-R' in newText:
-				newText=newText.replace('-R', '-L') 
+				newText=newText.replace('-R', '-L')
 			while 'MyPass' in newText:
-				newText=newText.replace('MyPass', password)		
+				newText=newText.replace('MyPass', password)
 			while 'MyName' in newText:
-				newText=newText.replace('MyName', qra)		
+				newText=newText.replace('MyName', qra)
+			while 'LINK_IDLE_TIMEOUT' in newText:
+				newText=newText.replace('LINK_IDLE_TIMEOUT', '#LINK_IDLE_TIMEOUT')
 			while '[Svx] Fq, MyTown' in newText:
-				newText=newText.replace('[Svx] Fq, MyTown', qth)			
+				newText=newText.replace('[Svx] Fq, MyTown', qth + ' ' + qrg)
 			while 'You have connected to a SvxLink node' in newText:
-				newText=newText.replace('You have connected to a SvxLink node', 'Você está conectado a um dispositivo Pi com SVXLINK')				
+				newText=newText.replace('You have connected to a SvxLink node', 'Você está conectado a um dispositivo Pi com SVXLINK')
 			while 'a voice services system for Linux with EchoLink' in newText:
-				newText=newText.replace('a voice services system for Linux with EchoLink', 'um sistema de suporte a voz sobre IP para')			
+				newText=newText.replace('a voice services system for Linux with EchoLink', 'um sistema de suporte a voz sobre IP para')
 			while 'support.' in newText:
-				newText=newText.replace('support.', 'Linux com EchoLink')		
+				newText=newText.replace('support.', 'Linux com EchoLink')
 			while 'Check out http://svxlink.sf.net/ for more info' in newText:
-				newText=newText.replace('Check out http://svxlink.sf.net/ for more info', 'Acesse https://goo.gl/MGqJ5t para mais informações')			
+				newText=newText.replace('Check out http://svxlink.sf.net/ for more info', 'Acesse https://goo.gl/MGqJ5t para mais informações')
 			while 'My_QTH' in newText:
-				newText=newText.replace('My_QTH', qth)			
+				newText=newText.replace('My_QTH', qth)
 			while 'Simplex link on ???.???' in newText:
-				newText=newText.replace('Simplex link on ???.???', qrg)			
+				newText=newText.replace('Simplex link on ???.???', qrg)
 			while 'My_CTCSS_fq_if_any' in newText:
-				newText=newText.replace('My_CTCSS_fq_if_any', ctcss)			
+				newText=newText.replace('My_CTCSS_fq_if_any', ctcss)
 			while 'My_transceiver_type' in newText:
-				newText=newText.replace('My_transceiver_type', transceiver)			
+				newText=newText.replace('My_transceiver_type', transceiver)
 			while 'My_antenna_brand/type/model' in newText:
-				newText=newText.replace('My_antenna_brand/type/model', antenna) 
+				newText=newText.replace('My_antenna_brand/type/model', antenna)
 		with open(ModuleEchoLink, "w") as f:
 			f.write(newText)
 		
@@ -205,35 +207,37 @@ def type():
 			
 			# ModuleEchoLink.conf
 			with open(ModuleEchoLink, 'U') as f:
-				newText=f.read() 
+				newText=f.read()
 				while 'MYCALL' in newText:
-					newText=newText.replace('MYCALL', callsign)			
+					newText=newText.replace('MYCALL', callsign)
 				while '-L' in newText:
-					newText=newText.replace('-L', '-R') 
+					newText=newText.replace('-L', '-R')
 				while 'MyPass' in newText:
-					newText=newText.replace('MyPass', password)		
+					newText=newText.replace('MyPass', password)
 				while 'MyName' in newText:
-					newText=newText.replace('MyName', qra)		
+					newText=newText.replace('MyName', qra)
+				while 'LINK_IDLE_TIMEOUT' in newText:
+				newText=newText.replace('LINK_IDLE_TIMEOUT', '#LINK_IDLE_TIMEOUT')
 				while '[Svx] Fq, MyTown' in newText:
-					newText=newText.replace('[Svx] Fq, MyTown', qth)			
+					newText=newText.replace('[Svx] Fq, MyTown', qth + ' ' + qrg)
 				while 'You have connected to a SvxLink node' in newText:
-					newText=newText.replace('You have connected to a SvxLink node', 'Você está conectado a um dispositivo Pi com SVXLINK')				
+					newText=newText.replace('You have connected to a SvxLink node', 'Você está conectado a um dispositivo Pi com SVXLINK')
 				while 'a voice services system for Linux with EchoLink' in newText:
-					newText=newText.replace('a voice services system for Linux with EchoLink', 'um sistema de suporte a voz sobre IP para')			
+					newText=newText.replace('a voice services system for Linux with EchoLink', 'um sistema de suporte a voz sobre IP para')
 				while 'support.' in newText:
-					newText=newText.replace('support.', 'Linux com EchoLink')			
+					newText=newText.replace('support.', 'Linux com EchoLink')
 				while 'Check out http://svxlink.sf.net/ for more info' in newText:
-					newText=newText.replace('Check out http://svxlink.sf.net/ for more info', 'Acesse https://goo.gl/MGqJ5t para mais informações')			
+					newText=newText.replace('Check out http://svxlink.sf.net/ for more info', 'Acesse https://goo.gl/MGqJ5t para mais informações')
 				while 'My_QTH' in newText:
-					newText=newText.replace('My_QTH', qth)			
+					newText=newText.replace('My_QTH', qth)
 				while 'Simplex link on ???.???' in newText:
-					newText=newText.replace('Simplex link on ???.???', qrg)			
+					newText=newText.replace('Simplex link on ???.???', qrg)
 				while 'My_CTCSS_fq_if_any' in newText:
-					newText=newText.replace('My_CTCSS_fq_if_any', ctcss)			
+					newText=newText.replace('My_CTCSS_fq_if_any', ctcss)
 				while 'My_transceiver_type' in newText:
-					newText=newText.replace('My_transceiver_type', transceiver)			
+					newText=newText.replace('My_transceiver_type', transceiver)
 				while 'My_antenna_brand/type/model' in newText:
-					newText=newText.replace('My_antenna_brand/type/model', antenna) 
+					newText=newText.replace('My_antenna_brand/type/model', antenna)
 			with open(ModuleEchoLink, "w") as f:
 				f.write(newText)
 			
