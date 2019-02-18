@@ -97,8 +97,6 @@ def autoconnect():
 		# ModuleEchoLink.conf
 		with open(ModuleEchoLink, 'U') as f:
 			newText=f.read()
-			while 'LINK_IDLE_TIMEOUT' in newText:
-				newText=newText.replace('LINK_IDLE_TIMEOUT', '#LINK_IDLE_TIMEOUT')
 			while '#AUTOCON_ECHOLINK_ID=' in newText:
 				newText=newText.replace('#AUTOCON_ECHOLINK_ID=', 'AUTOCON_ECHOLINK_ID=')
 			while '9999' in newText:
