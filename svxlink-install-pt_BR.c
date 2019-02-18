@@ -546,8 +546,8 @@ int main(void)
 
         else if (Opt > 11)
         {
+			imprime_tela_cabecalho(); //Imprime o cabeçalho da aplicação
             printf("\n\n                                 Opção Inválida!\n");
-			sleep(TMP);
         }
 
     } while (Opt != 0);
