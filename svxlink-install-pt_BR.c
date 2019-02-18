@@ -8,7 +8,7 @@
 #include<stdlib.h>
 #include<locale.h> //necessário para usar setlocale
 
-#define TEMP 40 //Contador de tempo para tela de abertura (15 segundos)
+#define TEMP 30 //Contador de tempo para tela de abertura (15 segundos)
 #define TMP 5 //Contador de tempo para mensagens (5 segundos)
 
 
@@ -43,8 +43,7 @@ void imprime_tela_cabecalho()
 /* Cabeçalho do menu principal */
 void cabecalho_menu_principal()
 {
-    sleep(TEMP);
-
+	sleep(TMP);
     imprime_tela_cabecalho();
     printf("  ================================== MENU ==================================\n\n");
 }
@@ -65,6 +64,7 @@ void imprime_tela_abertura()
     printf("   GNU/Linux 3.0 e distribuíbo exclusivamente pelo site github.com.\n\n"); //Se ativar a linha abaixo remover \n\n\n\n\n\n\n (7)
     printf("   Autor: Airam - PU8ASR (airamcosta@gmail.com)\n\n");
     printf("   O menu será exibido em %d segundos\n", TEMP);
+	sleep(TEMP);
 }
 /* Fim dos códigos de tela */
 
