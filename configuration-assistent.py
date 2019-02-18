@@ -96,22 +96,28 @@ def autoconnect():
 		# Edita o arquivo
 		# ModuleEchoLink.conf
 		with open(ModuleEchoLink, 'U') as f:
-			newText=f.read() 
+			newText=f.read()
+			while 'LINK_IDLE_TIMEOUT' in newText:
+				newText=newText.replace('LINK_IDLE_TIMEOUT', '#LINK_IDLE_TIMEOUT')
 			while '#AUTOCON_ECHOLINK_ID=' in newText:
-				newText=newText.replace('#AUTOCON_ECHOLINK_ID=', 'AUTOCON_ECHOLINK_ID=')			
+				newText=newText.replace('#AUTOCON_ECHOLINK_ID=', 'AUTOCON_ECHOLINK_ID=')
 			while '9999' in newText:
-				newText=newText.replace('9999', nodenumber) 
-			while 'MyPass' in newText:
-				newText=newText.replace('MyPass', password)		
-			while '#AUTOCON_TIME' in newText:
-				newText=newText.replace('#AUTOCON_TIME', 'AUTOCON_TIME') 
+				newText=newText.replace('9999', nodenumber)
 		with open(ModuleEchoLink, "w") as f:
 			f.write(newText)
 		print("\n   A configuração de autoconexão para o nó do EchoLink informado foi concluída!\n   Aguarde...\n")
 	else:
 		if (autoconnect == "N"):
-			# Instruções ao usuário
-			print("\n   Infelizmente não concluímos esta função!\n")
+			# ModuleEchoLink.conf
+			with open(ModuleEchoLink, 'U') as f:
+				newText=f.read()
+				while '#ALLOW_IP' in newText:
+					newText=newText.replace('#ALLOW_IP', 'ALLOW_IP')
+				while '#ACCEPT_INCOMING' in newText:
+					newText=newText.replace('#ACCEPT_INCOMING', 'ACCEPT_INCOMING')
+			with open(ModuleEchoLink, "w") as f:
+				f.write(newText)
+			print("\n   Configuração concluida!\n   Sua estação poderá receber até 10 conexões simultâneas.\n   Aguarde...\n")
 		else:
 			attention_autoconnect()
 
@@ -199,8 +205,6 @@ def type():
 			# svxlink.conf
 			with open(svxlink, 'U') as f:
 				newText=f.read()
-				while 'TIMEOUT' in newText:
-					newText=newText.replace('TIMEOUT', '#TIMEOUT')
 				while 'LOGICS=SimplexLogic' in newText:
 					newText=newText.replace('LOGICS=SimplexLogic', 'LOGICS=RepeaterLogic') 
 				while 'MYCALL' in newText:
@@ -235,8 +239,6 @@ def type():
 					newText=newText.replace('support.', 'Linux com EchoLink de propriedade de XXX')
 				while 'Check out http://svxlink.sf.net/ for more info' in newText:
 					newText=newText.replace('Check out http://svxlink.sf.net/ for more info', 'Acesse https://goo.gl/MGqJ5t para mais informações')
-				while '"\n"' in newText:
-					newText=newText.replace('"informações\n"', 'informações\n\nResponsável:     ' + qra)
 				while 'My_QTH' in newText:
 					newText=newText.replace('My_QTH', qth)
 				while 'Simplex link on ???.???' in newText:
