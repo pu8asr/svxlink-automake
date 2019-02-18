@@ -546,7 +546,7 @@ int main(void)
 
         else if (Opt > 11)
         {
-            printf("\n\n                                 Opção Inválida!\n\n\n\n\n\n\n");
+            printf("\n\n                                 Opção Inválida!\n");
 			sleep(TMP);
         }
 
