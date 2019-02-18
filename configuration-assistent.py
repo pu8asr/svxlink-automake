@@ -198,7 +198,9 @@ def type():
 		
 			# svxlink.conf
 			with open(svxlink, 'U') as f:
-				newText=f.read()			
+				newText=f.read()
+				while 'TIMEOUT' in newText:
+					newText=newText.replace('TIMEOUT', '#TIMEOUT')
 				while 'LOGICS=SimplexLogic' in newText:
 					newText=newText.replace('LOGICS=SimplexLogic', 'LOGICS=RepeaterLogic') 
 				while 'MYCALL' in newText:
