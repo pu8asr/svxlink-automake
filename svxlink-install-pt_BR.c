@@ -392,7 +392,6 @@ int main(void)
 				printf("  ========================= CONFIGURAÇÃO DO SVXLINK ========================\n\n");
 				printf("   O assistente o ajudará a configurar o seu LINK ou REPETIDOR.\n\n");
 				printf("   Verificando a existência de cópia de segurança...\n");
-				sleep(TMP);
 				
 				printf("   O arquivo svxlink.conf já foi alterado anteriormente.\n");
 				printf("   Deseja restaurar a cópia original do arquivo?\n");
@@ -403,7 +402,6 @@ int main(void)
 					printf("   A cópia não é mais necessária. Removendo...\n");
 					system("sudo rm /etc/svxlink/svxlink.conf.bkp");
 					printf("   Concluído!\n");
-					sleep(TMP);
 				};
 			};
 			
@@ -413,7 +411,6 @@ int main(void)
 				printf("  ========================= CONFIGURAÇÃO DO SVXLINK ========================\n\n");
 				printf("   O assistente o ajudará a configurar o seu LINK ou REPETIDOR.\n\n");
 				printf("   Verificando a existência de cópia de segurança...\n");
-				sleep(TMP);
 					
 				printf("   O arquivo ModuleEchoLink.conf já foi alterado anteriormente.\n");
 				printf("   Deseja restaurar a cópia original do arquivo?\n");
@@ -424,7 +421,6 @@ int main(void)
 					printf("   A cópia não é mais necessária. Removendo...\n");
 					system("sudo rm /etc/svxlink/svxlink.d/ModuleEchoLink.conf.bkp");
 					printf("   Concluído!\n");
-					sleep(TMP);
 				};
 			};
 			
@@ -434,7 +430,6 @@ int main(void)
 				printf("  ========================= CONFIGURAÇÃO DO SVXLINK ========================\n\n");
 				printf("   O assistente o ajudará a configurar o seu LINK ou REPETIDOR.\n\n");
 				printf("   Verificando a existência de cópia de segurança...\n");
-				sleep(TMP);
 				
 				printf("   O arquivo rc.local já foi alterado anteriormente.\n");
 				printf("   Deseja restaurar a cópia original do arquivo?\n");
@@ -445,7 +440,6 @@ int main(void)
 					printf("   A cópia não é mais necessária. Removendo...\n");
 					system("sudo rm /etc/rc.local.bkp");
 					printf("   Concluído!\n");
-					sleep(TMP);
 				};
 			};
 
@@ -455,20 +449,18 @@ int main(void)
 				printf("  ========================= CONFIGURAÇÃO DO SVXLINK ========================\n\n");
 				printf("   O assistente o ajudará a configurar o seu LINK ou REPETIDOR.\n\n");
 				printf("   Verificando a existência de cópia de segurança...\n");
-				sleep(TMP);
 				
 				printf("   Não foi encontrada nenhuma cópia de segurança de /etc/svxlink/svxlink.conf\n");
 				printf("   Criando cópia de segurança do arquivo /etc/svxlink/svxlink.conf\n");
 				system("sudo cp /etc/svxlink/svxlink.conf /etc/svxlink/svxlink.conf.bkp");
 				printf("   Concluído!\n\n");
-				sleep(TMP);
+				
 				printf("   Deseja editar o arquivo manualmente, agora?\n");
 				printf("   Se preferir a ajuda do assistente, escolha 0\n");
 				if(decision2Options()==1)
 				{
 					system("sudo nano /etc/svxlink/svxlink.conf");
 				};
-				sleep(TMP);
 			};
 				
 			if(fileExists("/etc/svxlink/svxlink.d/ModuleEchoLink.conf.bkp")==0)
@@ -477,20 +469,18 @@ int main(void)
 				printf("  ========================= CONFIGURAÇÃO DO SVXLINK ========================\n\n");
 				printf("   O assistente o ajudará a configurar o seu LINK ou REPETIDOR.\n\n");
 				printf("   Verificando a existência de cópia de segurança...\n");
-				sleep(TMP);
 				
 				printf("   Não foi encontrada nenhuma cópia de segurança de /etc/svxlink/svxlink.d/ModuleEchoLink.conf\n");
 				printf("   Criando cópia de segurança do arquivo /etc/svxlink/svxlink.d/ModuleEchoLink.conf\n");
 				system("sudo cp /etc/svxlink/svxlink.d/ModuleEchoLink.conf /etc/svxlink/svxlink.d/ModuleEchoLink.conf.bkp");
 				printf("   Concluído!\n\n");
-				sleep(TMP);
+				
 				printf("   Deseja editar o arquivo manualmente, agora?\n");
 				printf("   Se preferir a ajuda do assistente, escolha 0\n");
 				if(decision2Options()==1)
 				{
 					system("sudo nano /etc/svxlink/svxlink.d/ModuleEchoLink.conf");
 				};
-				sleep(TMP);
 			};
 			
 			if(fileExists("/etc/rc.local.bkp")==0)
@@ -499,20 +489,18 @@ int main(void)
 				printf("  ========================= CONFIGURAÇÃO DO SVXLINK ========================\n\n");
 				printf("   O assistente o ajudará a configurar o seu LINK ou REPETIDOR.\n\n");
 				printf("   Verificando a existência de cópia de segurança...\n");
-				sleep(TMP);
 				
 				printf("   Não foi encontrada nenhuma cópia de segurança de /etc/rc.local\n");
 				printf("   Criando cópia de segurança do arquivo /etc/rc.local\n");
 				system("sudo cp /etc/rc.local /etc/rc.local.bkp");
 				printf("   Concluído!\n\n");
-				sleep(TMP);
+				
 				printf("   Deseja editar o arquivo manualmente, agora?\n");
 				printf("   Se preferir a ajuda do assistente, escolha 0\n");
 				if(decision2Options()==1)
 				{
 					system("sudo nano /etc/rc.local");
 				};
-				sleep(TMP);
 			};
 			
 			if(fileExists("/etc/svxlink/svxlink.conf.bkp")==1)
@@ -523,12 +511,12 @@ int main(void)
 					{
 						imprime_tela_cabecalho(); //Imprime o cabeçalho da aplicação
 						printf("  ========================= CONFIGURAÇÃO DO SVXLINK ========================\n\n");
-						printf("   O assistente apresenta melhores resultados se os arquivos ainda não\n   tiverem sido alterados.\n   Caso não funcione, escolha a opção 8 no menu principal novamente e restaure\n   as cópias originais dos arquivos.\n");
+						printf("   O assistente apresenta melhores resultados se os arquivos ainda não\n   tiverem sido alterados.\n\n   Caso não funcione, escolha a opção 8 no menu principal novamente e\n   restaure as cópias originais dos arquivos.\n");
 						sleep(TMP);
 						sleep(TMP);
 						imprime_tela_cabecalho(); //Imprime o cabeçalho da aplicação
 						printf("  ========================= CONFIGURAÇÃO DO SVXLINK ========================\n\n");
-						printf("   O assistente o ajudará a configurar o seu LINK ou REPETIDOR.\n\n");		
+						printf("   O assistente o ajudará a configurar o seu LINK ou REPETIDOR.\n\n");
 						system("sudo python configuration-assistent.py");
 					}
 				}
