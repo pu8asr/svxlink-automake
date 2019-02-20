@@ -11,7 +11,6 @@
 #define TEMP 30 //Contador de tempo para tela de abertura (15 segundos)
 #define TMP 5 //Contador de tempo para mensagens (5 segundos)
 
-
 /* Início dos protótipos */
 void limpa_tela();
 void limpa_tela_cabecalho();
@@ -230,21 +229,8 @@ int main(void)
 
 			sleep(TMP);
 
-			printf("   Verificando a existência de cópia de segurança...\n");
+			printf("   \nVerificando a existência de cópia de segurança...\n");
 
-			if(fileExists("/etc/fstab.bkp")==0)
-			{
-				printf("   Não foi encontrada nenhuma cópia de segurança de /etc/fstab\n");
-				printf("   Criando cópia de segurança do arquivo /etc/fstab\n");
-				system("sudo cp /etc/fstab /etc/fstab.bkp");
-				printf("   Otimizando partições...\n");
-				system("sudo python optimization-partitions.py");
-				printf("   Desativando SWAP...\n");
-				system("sudo swapoff --all");
-				printf("   Removendo SWAP...\n");
-				system("sudo apt-get remove dphys-swapfile");
-				printf("   Concluído!\n");
-			} else
 			if (fileExists("/etc/fstab.bkp")==1)
 			{
 				printf("   O arquivo fstab já foi alterado anteriormente.\n");
@@ -257,25 +243,9 @@ int main(void)
 					printf("   A cópia não é mais necessária. Removendo...\n");
 					system("sudo rm /etc/fstab.bkp");
 					printf("   Concluído!\n");
-				} else
-				printf("   Deseja realizar a configuração manualmente?\n");
-				if(decision2Options()==1)
-				{
-					system("sudo nano /etc/fstab");
-				}
+				};
 			};
-
-			sleep(TMP);
-
-			if(fileExists("/boot/config.txt.bkp")==0)
-			{
-				printf("   Não foi encontrada nenhuma cópia de segurança de /boot/config.txt\n");
-				printf("   Criando cópia de segurança do arquivo /boot/config.txt\n");
-				system("sudo cp /boot/config.txt /boot/config.txt.bkp");
-				printf("   Configurando tensão nas portas USB...\n");
-				system("sudo python optimization-usb.py");
-				printf("   Concluído!\n");
-			} else
+			
 			if(fileExists("/boot/config.txt.bkp")==1)
 			{
 				printf("   O arquivo config.txt já foi alterado anteriormente.\n");
@@ -288,12 +258,43 @@ int main(void)
 					printf("   A cópia não é mais necessária. Removendo...\n");
 					system("sudo rm /boot/config.txt.bkp");
 					printf("   Concluído!\n");
-				} else
-				printf("   Deseja realizar a configuração manualmente?\n");
+				};
+			};
+			
+			if(fileExists("/etc/fstab.bkp")==0)
+			{
+				printf("   Não foi encontrada nenhuma cópia de segurança de /etc/fstab\n");
+				printf("   Criando cópia de segurança do arquivo /etc/fstab\n");
+				system("sudo cp /etc/fstab /etc/fstab.bkp");
+				printf("   Otimizando partições...\n");
+				system("sudo python optimization-partitions.py");
+				printf("   Desativando SWAP...\n");
+				system("sudo swapoff --all");
+				printf("   Removendo SWAP...\n");
+				system("sudo apt-get remove dphys-swapfile");
+				printf("   Concluído!\n\n");
+				
+				printf("   Deseja abrir o arquivo para visualizar as alterações ou editá-lo.\n");
+				if(decision2Options()==1)
+				{
+					system("sudo nano /etc/fstab");
+				};
+			};			
+			
+			if(fileExists("/boot/config.txt.bkp")==0)
+			{
+				printf("   Não foi encontrada nenhuma cópia de segurança de /boot/config.txt\n");
+				printf("   Criando cópia de segurança do arquivo /boot/config.txt\n");
+				system("sudo cp /boot/config.txt /boot/config.txt.bkp");
+				printf("   Configurando tensão nas portas USB...\n");
+				system("sudo python optimization-usb.py");
+				printf("   Concluído!\n\n");
+				
+				printf("   Deseja abrir o arquivo para visualizar as alterações ou editá-lo.\n");
 				if(decision2Options()==1)
 				{
 					system("sudo nano /boot/config.txt");
-				}
+				};
 			};
 
 			printf("\n\n   Terminado!\n\n");
