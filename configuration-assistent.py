@@ -111,7 +111,7 @@ tar zxvf svxlink.tgz
 # Dá permissão de escrita na pasta voice_mail
 sudo chmod 777 /var/spool/svxlink/voice_mail
 
-# Iniciando o svxlink como servico (oculto)
+# Iniciando o svxlink
 svxlink
 
 exit 0"""                     # Fim o texto a ser inserido no arquivo
