@@ -230,8 +230,6 @@ def type():
 				newText=newText.replace('MyName', qth + ' ' + qrg + ' ' + ctcss)
 			while '[Svx] Fq, MyTown' in newText:
 				newText=newText.replace('[Svx] Fq, MyTown', qth + ' ' + qrg + ' ' + ctcss)
-			while 'LINK_IDLE_TIMEOUT' in newText:
-				newText=newText.replace('LINK_IDLE_TIMEOUT', '#LINK_IDLE_TIMEOUT')
 			while 'You have connected to a SvxLink node' in newText:
 				newText=newText.replace('You have connected to a SvxLink node', 'Você está conectado a um dispositivo Pi com SVXLINK')
 			while 'a voice services system for Linux with EchoLink' in newText:
@@ -299,8 +297,6 @@ def type():
 					newText=newText.replace('MyName', qth + ' ' + qrg + ' ' + ctcss)
 				while '[Svx] Fq, MyTown' in newText:
 					newText=newText.replace('[Svx] Fq, MyTown', qth + ' ' + qrg + ' ' + ctcss)
-				while 'LINK_IDLE_TIMEOUT' in newText:
-				newText=newText.replace('LINK_IDLE_TIMEOUT', '#LINK_IDLE_TIMEOUT')
 				while 'You have connected to a SvxLink node' in newText:
 					newText=newText.replace('You have connected to a SvxLink node', 'Você está conectado a um dispositivo Pi com SVXLINK')
 				while 'a voice services system for Linux with EchoLink' in newText:
