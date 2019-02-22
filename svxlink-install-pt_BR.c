@@ -536,7 +536,7 @@ int main(void)
 			{
 				printf("   Abrindo alsamixer...\n");
 				system("sudo alsamixer");
-				printf("   Concluído!\nCaso apresente resultado indesejado repita a operação.\n");
+				printf("   Concluído!\n   Caso apresente resultado indesejado repita a operação.\n");
 			};
 			
         }
