@@ -523,6 +523,22 @@ int main(void)
 				}
 			};
 			
+			// Ajuste dos níveis de áudio (ALSAMIXER)
+			imprime_tela_cabecalho(); //Imprime o cabeçalho da aplicação
+			printf("  ========================= CONFIGURAÇÃO DO SVXLINK ========================\n\n");
+			printf("   O assistente o ajudará a configurar o ALSAMIXER.\n\n");
+			
+			printf("   Os áudios de entrada e saída são gerenciados pela ALSAMIXER.\n");
+			printf("   É recomendável ajustar os níveis de áudio nos limites mínimos.\n");
+			printf("   Ajuste inclusive o volume do seu transceptor.\n\n");
+			printf("   Deseja executar o utilitário de configuração do ALSAMIXER agora?\n");
+			if(decision2Options()==1)
+			{
+				printf("   Abrindo alsamixer...\n");
+				system("sudo alsamixer");
+				printf("   Concluído!\nCaso apresente resultado indesejado repita a operação.\n");
+			};
+			
         }
 
         else if (Opt == 9)
