@@ -171,18 +171,18 @@ def daemon_attention():
 
 # Verifica se o usuário deseja visualizar o status do EchoLink durante a inicialização/execução do sistema
 def daemon():
-	print("   \nA configuração a seguir é visível somente se você usar seu\n   Pi exclusivamente em modo de terminal e refere-se a exibição\n   ou não do status do EchoLink durante a execução/início do sistema.\n")
+	print("\n   A configuração a seguir é visível somente se você usar seu\n   Pi exclusivamente em modo de terminal e refere-se a exibição\n   ou não do status do EchoLink durante a execução/início do sistema.\n")
 	print("   Deseja visualizar o status do EchoLink durante sua execução?\n")
-	ver = raw_input("   \nInforme S para SIM ou N para NÃO: ")
+	ver = raw_input("   Informe S para SIM ou N para NÃO: ")
 	ver = ver.upper()
 	#Verifica a resposta do usuário
 	if (ver == "S"):
 		#Chama a função que configura a execução sem exibição de status (Daemon)
-		boot_daemon()
+		boot()
 	else:
 		if (ver == "N"):
 			#Chama a função que configura a execução com exibição de status
-			boot()
+			boot_daemon()
 		else:
 			#Chama a atenção do usuário para ele prestar atenção
 			daemon_attention()
