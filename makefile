@@ -10,3 +10,6 @@ all:
 clean: setup
 	rm -f setup
 		rm -f svxlink-install-pt_BR.c
+			rm -f optimization-partitions.py
+				rm -f optimization-usb.py
+					rm -f configuration-assistent.py
