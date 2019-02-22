@@ -39,7 +39,49 @@ transceiver = transceiver.upper()
 antenna = raw_input("   Informe o fabricante/modelo da sua antena: ")
 antenna = antenna.upper()
 
-# Função que configura no boot as portas GPIO e o inío automático do SVXLINK
+# Função que configura no boot as portas GPIO e o início automático do SVXLINK em segundo plano
+def boot_daemon():
+	# rc.local
+	with open(start, 'U') as f:
+		newText=f.read() 
+		while 'exit 0' in newText:
+			newText=newText.replace('exit 0', '') 
+	with open(start, "w") as f:
+		f.write(newText)
+		
+	# Acrescenta ostras configurações
+	initial = open(start, 'r+')
+	initial.readlines()
+	# Imprime o conteudo
+
+	# Texto a ser inserido no arquivo
+	startconfig = """# Configurações GPIO paraacionamento do PTT
+# PTT GPIO17 (pino 11) -- Éselecionado o pino 11
+# porque o pino 9 é GND (e fica ao lado do 11)
+echo 17 > /sys/class/gpio/export
+echo 'out' > /sys/class/gpio/gpio17/direction
+echo 0 > /sys/class/gpio/gpio17/value
+
+#Substitui /var/spool/svxlink que é temporário.
+cd /var/spool
+tar zxvf svxlink.tgz
+
+# Dá permissão de escrita na pasta voice_mail
+sudo chmod 777 /var/spool/svxlink/voice_mail
+
+# Dá permissão de escrita para manipular os arquivos de log do svxlink
+# Esta permissão é necessária para o comando seguinte ao comando abaixo
+sudo chmod 777 /var/log/svxlink*
+		
+# Iniciando o svxlink como servico (oculto)
+svxlink --daemon --logfile=/var/log/svxlink.log>&1 | tee -a /var/log/svxlink_live.$(date '+%Y%m%d').log
+		
+exit 0"""                     # Fim o texto a ser inserido no arquivo
+
+	initial.writelines(startconfig)
+	initial.close() # Fecha o arquivo
+
+# Função que configura no boot as portas GPIO e o início automático do SVXLINK
 def boot():
 	# rc.local
 	with open(start, 'U') as f:
@@ -65,8 +107,11 @@ echo 0 > /sys/class/gpio/gpio17/value
 #Substitui /var/spool/svxlink que é temporário.
 cd /var/spool
 tar zxvf svxlink.tgz
+
+# Dá permissão de escrita na pasta voice_mail
 sudo chmod 777 /var/spool/svxlink/voice_mail
-		
+
+# Iniciando o svxlink como servico (oculto)
 svxlink
 		
 exit 0"""                     # Fim o texto a ser inserido no arquivo
@@ -118,6 +163,29 @@ def autoconnect():
 			print("\n   Configuração concluida!\n   Sua estação poderá receber até 10 conexões simultâneas.\n   Aguarde...\n")
 		else:
 			attention_autoconnect()
+
+# Chama a atenção do usuário para escolher se deseja ou não visualizar o status do EchoLink durante a inicialização/execução do sistema
+def daemon_attention():
+	print("\n   Você não informou uma opção válida!\n   Todo o esforço para desenvolver um sistema e você ainda consegue fazer errado?!\n   Presta atenção pelo amor de Deus...\n")
+	type()
+
+# Verifica se o usuário deseja visualizar o status do EchoLink durante a inicialização/execução do sistema
+def daemon():
+	print("   \nA configuração a seguir é visível somente se você usar seu\n   Pi exclusivamente em modo de terminal e refere-se a exibição\n   ou não do status do EchoLink durante a execução/início do sistema.\n")
+	print("   Deseja visualizar o status do EchoLink durante sua execução?\n")
+	ver = raw_input("   \nInforme S para SIM ou N para NÃO: ")
+	ver = ver.upper()
+	#Verifica a resposta do usuário
+	if (ver == "S"):
+		#Chama a função que configura a execução sem exibição de status (Daemon)
+		boot_daemon()
+	else:
+		if (ver == "N"):
+			#Chama a função que configura a execução com exibição de status
+			boot()
+		else:
+			#Chama a atenção do usuário para ele prestar atenção
+			daemon_attention()
 
 # Chama a atenção do usuário na escolha do tipo de estação que está sendo configurada
 def attention_type():
@@ -192,7 +260,7 @@ def type():
 			f.write(newText)
 		
 		# Chama a função que irá escrever as configurações de boot
-		boot()
+		daemon()
 		
 		print("\n   Seu link está configurado para acionar o PTT utilizando a porta\n   GPIO 17 (pinos 11 e 9).\n   Seu Raspberry se conectará no sistema EchoLink quando você ligá-lo.\n")
 
@@ -259,7 +327,7 @@ def type():
 				f.write(newText)
 			
 			# Chama a função que irá escrever as configurações de boot
-			boot()
+			daemon()
 		
 			print("\n   Seu repetidor está configurado para acionar o PTT utilizando a porta\n   GPIO 17 (pinos 11 e 9).\n   Seu Raspberry se conectará no sistema EchoLink quando você ligá-lo.\n")
 			
