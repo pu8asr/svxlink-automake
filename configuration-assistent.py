@@ -72,10 +72,10 @@ sudo chmod 777 /var/spool/svxlink/voice_mail
 # Dá permissão de escrita para manipular os arquivos de log do svxlink
 # Esta permissão é necessária para o comando seguinte ao comando abaixo
 sudo chmod 777 /var/log/svxlink*
-		
+
 # Iniciando o svxlink como servico (oculto)
 svxlink --daemon --logfile=/var/log/svxlink.log>&1 | tee -a /var/log/svxlink_live.$(date '+%Y%m%d').log
-		
+
 exit 0"""                     # Fim o texto a ser inserido no arquivo
 
 	initial.writelines(startconfig)
@@ -113,7 +113,7 @@ sudo chmod 777 /var/spool/svxlink/voice_mail
 
 # Iniciando o svxlink como servico (oculto)
 svxlink
-		
+
 exit 0"""                     # Fim o texto a ser inserido no arquivo
 
 	initial.writelines(startconfig)
