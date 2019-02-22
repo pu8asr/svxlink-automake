@@ -119,6 +119,29 @@ exit 0"""                     # Fim o texto a ser inserido no arquivo
 	initial.writelines(startconfig)
 	initial.close() # Fecha o arquivo
 
+# Chama a atenção do usuário para escolher se deseja ou não visualizar o status do EchoLink durante a inicialização/execução do sistema
+def daemon_attention():
+	print("\n   Você não informou uma opção válida!\n   Todo o esforço para desenvolver um sistema e você ainda consegue fazer errado?!\n   Presta atenção pelo amor de Deus...\n")
+	type()
+
+# Verifica se o usuário deseja visualizar o status do EchoLink durante a inicialização/execução do sistema
+def daemon():
+	print("\n   A configuração a seguir é visível somente se você usar seu\n   Pi exclusivamente em modo de terminal e refere-se a exibição\n   ou não do status do EchoLink durante a execução/início do sistema.\n")
+	print("   Deseja visualizar o status do EchoLink durante sua execução?\n")
+	ver = raw_input("   Informe S para SIM ou N para NÃO: ")
+	ver = ver.upper()
+	#Verifica a resposta do usuário
+	if (ver == "S"):
+		#Chama a função que configura a execução sem exibição de status (Daemon)
+		boot()
+	else:
+		if (ver == "N"):
+			#Chama a função que configura a execução com exibição de status
+			boot_daemon()
+		else:
+			#Chama a atenção do usuário para ele prestar atenção
+			daemon_attention()
+
 # Chama a atenção do usuário na escolha do tipo de estação que está sendo configurada
 def attention_autoconnect():
 	print("\n   Você não informou uma opção válida!\n   Parece que você não esta prestando atenção.\n   Todo o esforço para desenvolver um sistema e você ainda consegue fazer errado?!\n   Este assistente não advinha, portanto, presta atenção!\n")
@@ -163,29 +186,6 @@ def autoconnect():
 			print("\n   Configuração concluida!\n   Sua estação poderá receber até 10 conexões simultâneas.\n   Aguarde...\n")
 		else:
 			attention_autoconnect()
-
-# Chama a atenção do usuário para escolher se deseja ou não visualizar o status do EchoLink durante a inicialização/execução do sistema
-def daemon_attention():
-	print("\n   Você não informou uma opção válida!\n   Todo o esforço para desenvolver um sistema e você ainda consegue fazer errado?!\n   Presta atenção pelo amor de Deus...\n")
-	type()
-
-# Verifica se o usuário deseja visualizar o status do EchoLink durante a inicialização/execução do sistema
-def daemon():
-	print("\n   A configuração a seguir é visível somente se você usar seu\n   Pi exclusivamente em modo de terminal e refere-se a exibição\n   ou não do status do EchoLink durante a execução/início do sistema.\n")
-	print("   Deseja visualizar o status do EchoLink durante sua execução?\n")
-	ver = raw_input("   Informe S para SIM ou N para NÃO: ")
-	ver = ver.upper()
-	#Verifica a resposta do usuário
-	if (ver == "S"):
-		#Chama a função que configura a execução sem exibição de status (Daemon)
-		boot()
-	else:
-		if (ver == "N"):
-			#Chama a função que configura a execução com exibição de status
-			boot_daemon()
-		else:
-			#Chama a atenção do usuário para ele prestar atenção
-			daemon_attention()
 
 # Chama a atenção do usuário na escolha do tipo de estação que está sendo configurada
 def attention_type():
@@ -328,7 +328,7 @@ def type():
 			
 			# Chama a função que irá escrever as configurações de boot
 			daemon()
-		
+			
 			print("\n   Seu repetidor está configurado para acionar o PTT utilizando a porta\n   GPIO 17 (pinos 11 e 9).\n   Seu Raspberry se conectará no sistema EchoLink quando você ligá-lo.\n")
 			
 		else:
