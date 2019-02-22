@@ -543,16 +543,19 @@ int main(void)
 
         else if (Opt == 9)
         {
+			printf("   Esta opção funciona apenas no modo Desktop(Ambiente Gráfico).\n");
 			system("chromium-browser wp.me/p1Srmy-9n");
         }
 
         else if (Opt == 10)
         {
+			printf("   Esta opção funciona apenas no modo Desktop(Ambiente Gráfico).\n");
             system("chromium-browser pu8asr.github.io/svxlink-automake");
         }
 
         else if (Opt == 11)
         {
+			printf("   Esta opção funciona apenas no modo Desktop(Ambiente Gráfico).\n");
 			system("chromium-browser conferenciaamazonica.wordpress.com");
         }
 
