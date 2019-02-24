@@ -319,16 +319,18 @@ int main(void)
 			
 			if(fileExists("master.tar.gz")==0)
 			{
+				printf("   Iniciando download dos arquivos de instalação...\n\n");
 				system("wget https://github.com/sm0svx/svxlink/archive/master.tar.gz");
 				printf("\n\n   Arquivo master.tar.gz baixado com sucesso em /home/pi/Downloads\n");
 			} else
 				if(fileExists("master.tar.gz")==1)
 				{
-					printf("   Iniciando descompactação...\n\n");
-					system("tar -xvzf master.tar.gz");
-					printf("\n\n   Descompactação concluída!\n");
+					printf("   Arquivos de instalação detectados em /home/pi/Downloads...\n\n");
 				};
 			
+			printf("   Iniciando descompactação...\n\n");
+			system("tar -xvzf master.tar.gz");
+			printf("\n\n   Descompactação concluída!\n");
 			printf("   Iniciando instalação...\n\n");
 			printf("\n\n   Criando diretório de compilação...\n\n");
 			system("mkdir /home/pi/Downloads/svxlink-master/src/build");
