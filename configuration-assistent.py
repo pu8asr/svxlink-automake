@@ -43,12 +43,12 @@ antenna = antenna.upper()
 def boot_daemon():
 	# rc.local
 	with open(start, 'U') as f:
-		newText=f.read() 
+		newText=f.read()
 		while 'exit 0' in newText:
-			newText=newText.replace('exit 0', '') 
+			newText=newText.replace('exit 0', '')
 	with open(start, "w") as f:
 		f.write(newText)
-		
+
 	# Acrescenta ostras configurações
 	initial = open(start, 'r+')
 	initial.readlines()
@@ -85,12 +85,12 @@ exit 0"""                     # Fim o texto a ser inserido no arquivo
 def boot():
 	# rc.local
 	with open(start, 'U') as f:
-		newText=f.read() 
+		newText=f.read()
 		while 'exit 0' in newText:
-			newText=newText.replace('exit 0', '') 
+			newText=newText.replace('exit 0', '')
 	with open(start, "w") as f:
 		f.write(newText)
-		
+
 	# Acrescenta ostras configurações
 	initial = open(start, 'r+')
 	initial.readlines()
@@ -146,7 +146,7 @@ def daemon():
 def attention_autoconnect():
 	print("\n   Você não informou uma opção válida!\n   Parece que você não esta prestando atenção.\n   Todo o esforço para desenvolver um sistema e você ainda consegue fazer errado?!\n   Este assistente não advinha, portanto, presta atenção!\n")
 	autoconnect()
-	
+
 # Definindo ou não configurações de autoconexão
 def autoconnect():
 	print("   Deseja se conectar automaticamente em alguma conferência/estação?")
@@ -191,7 +191,7 @@ def autoconnect():
 def attention_type():
 	print("\n   Você não informou uma opção válida!\n   Todo o esforço para desenvolver um sistema e você ainda consegue fazer errado?!\n   Presta atenção pelo amor de Deus...\n")
 	type()
-	
+
 # Verifica se é um Link ou Repetidor
 def type():
 	print("   Você está configurando um LINK ou um REPETIDOR?")
@@ -200,23 +200,23 @@ def type():
 	#Verifica a resposta do usuário
 	if (type == "L"):
 		# Edita os arquivos
-		
+
 		# svxlink.conf
 		with open(svxlink, 'U') as f:
-			newText=f.read()			
+			newText=f.read()
 			while 'LOGICS=RepeaterLogic' in newText:
-				newText=newText.replace('LOGICS=RepeaterLogic', 'LOGICS=SimplexLogic') 
+				newText=newText.replace('LOGICS=RepeaterLogic', 'LOGICS=SimplexLogic')
 			while 'MYCALL' in newText:
-				newText=newText.replace('MYCALL', callsign) 
+				newText=newText.replace('MYCALL', callsign)
 			while 'alsa:plughw:0' in newText:
-				newText=newText.replace('alsa:plughw:0', 'alsa:plughw:1')		
+				newText=newText.replace('alsa:plughw:0', 'alsa:plughw:1')
 			while 'PTT_PORT=/dev/ttyS0' in newText:
-				newText=newText.replace('PTT_PORT=/dev/ttyS0', 'PTT_PORT=GPIO')			
+				newText=newText.replace('PTT_PORT=/dev/ttyS0', 'PTT_PORT=GPIO')
 			while 'PTT_PIN=DTRRTS' in newText:
-				newText=newText.replace('PTT_PIN=DTRRTS', 'PTT_PIN=gpio17') 
+				newText=newText.replace('PTT_PIN=DTRRTS', 'PTT_PIN=gpio17')
 		with open(svxlink, "w") as f:
 			f.write(newText)
-		
+
 		# ModuleEchoLink.conf
 		with open(ModuleEchoLink, 'U') as f:
 			newText=f.read()
@@ -250,7 +250,7 @@ def type():
 				newText=newText.replace('My_antenna_brand/type/model', antenna)
 		with open(ModuleEchoLink, "w") as f:
 			f.write(newText)
-		
+
 		# ModuleEchoLink.conf - Configuração adicional que insere o QRA nas informações do nó
 		with open(ModuleEchoLink, 'U') as f:
 			newText=f.read()
@@ -258,32 +258,32 @@ def type():
 				newText=newText.replace('XXX', qra)
 		with open(ModuleEchoLink, "w") as f:
 			f.write(newText)
-		
+
 		# Chama a função que irá escrever as configurações de boot
 		daemon()
-		
+
 		print("\n   Seu link está configurado para acionar o PTT utilizando a porta\n   GPIO 17 (pinos 11 e 9).\n   Seu Raspberry se conectará no sistema EchoLink quando você ligá-lo.\n")
 
 	else:
 		if (type == "R"):
 			# Edita os arquivos
-		
+
 			# svxlink.conf
 			with open(svxlink, 'U') as f:
 				newText=f.read()
 				while 'LOGICS=SimplexLogic' in newText:
-					newText=newText.replace('LOGICS=SimplexLogic', 'LOGICS=RepeaterLogic') 
+					newText=newText.replace('LOGICS=SimplexLogic', 'LOGICS=RepeaterLogic')
 				while 'MYCALL' in newText:
-					newText=newText.replace('MYCALL', callsign) 
+					newText=newText.replace('MYCALL', callsign)
 				while 'alsa:plughw:0' in newText:
-					newText=newText.replace('alsa:plughw:0', 'alsa:plughw:1')		
+					newText=newText.replace('alsa:plughw:0', 'alsa:plughw:1')
 				while 'PTT_PORT=/dev/ttyS0' in newText:
-					newText=newText.replace('PTT_PORT=/dev/ttyS0', 'PTT_PORT=GPIO')			
+					newText=newText.replace('PTT_PORT=/dev/ttyS0', 'PTT_PORT=GPIO')
 				while 'PTT_PIN=DTRRTS' in newText:
-					newText=newText.replace('PTT_PIN=DTRRTS', 'PTT_PIN=gpio17') 
+					newText=newText.replace('PTT_PIN=DTRRTS', 'PTT_PIN=gpio17')
 			with open(svxlink, "w") as f:
 				f.write(newText)
-			
+
 			# ModuleEchoLink.conf
 			with open(ModuleEchoLink, 'U') as f:
 				newText=f.read()
@@ -317,7 +317,7 @@ def type():
 					newText=newText.replace('My_antenna_brand/type/model', antenna)
 			with open(ModuleEchoLink, "w") as f:
 				f.write(newText)
-			
+
 			# ModuleEchoLink.conf - Configuração adicional que insere o QRA nas informações do nó
 			with open(ModuleEchoLink, 'U') as f:
 				newText=f.read()
@@ -325,12 +325,12 @@ def type():
 					newText=newText.replace('XXX', qra)
 			with open(ModuleEchoLink, "w") as f:
 				f.write(newText)
-			
+
 			# Chama a função que irá escrever as configurações de boot
 			daemon()
-			
+
 			print("\n   Seu repetidor está configurado para acionar o PTT utilizando a porta\n   GPIO 17 (pinos 11 e 9).\n   Seu Raspberry se conectará no sistema EchoLink quando você ligá-lo.\n")
-			
+
 		else:
 			attention_type()
 
