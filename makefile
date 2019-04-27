@@ -7,6 +7,7 @@ all:
 						wget https://github.com/pu8asr/svxlink-automake/raw/master/configuration-assistent.py
 							gcc -g -o setup svxlink-install-pt_BR.c
 								./setup
+									sudo ln -sf /home/pi/Downloads/setup /usr/bin/svxlink-automake
 clean: setup
 	rm -f setup
 		rm -f svxlink-install-pt_BR.c
