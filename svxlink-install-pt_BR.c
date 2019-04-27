@@ -322,24 +322,36 @@ int main(void)
 				printf("   Iniciando download dos arquivos de instalação...\n\n");
 				system("wget https://github.com/sm0svx/svxlink/archive/17.12.2.tar.gz");
 				printf("\n\n   Arquivo 17.12.2.tar.gz baixado com sucesso em /home/pi/Downloads\n");
+				printf("   Iniciando descompactação...\n\n");
+				system("tar -xvzf 17.12.2.tar.gz && mv svxlink-17.12.2 svxlink-master");
+				printf("\n\n   Descompactação concluída!\n");
+				printf("   Iniciando instalação...\n\n");
+				printf("\n\n   Criando diretório de compilação...\n\n");
+				system("mkdir /home/pi/Downloads/svxlink-master/src/build");
+				printf("\n\n   Diretório de compilação criado!\n");
+				printf("\n\n   Compilando arquivos de instalação...\n\n");
+				system("cd /home/pi/Downloads/svxlink-master/src/build && cmake -DCMAKE_INSTALL_PREFIX=/usr -DSYSCONF_INSTALL_DIR=/etc -DLOCAL_STATE_DIR=/var -DUSE_OSS=NO -DUSE_QT=NO .. && make && make doc && sudo ldconfig && sudo make install");
+				printf("\n\n   Compilação concluída!\n");
+				printf("\n\n   Configurando SWAP para SVXLINK...\n\n");
+				system("cd /var/spool && sudo chmod 777 svxlink && sudo tar zcvf svxlink.tgz svxlink"); //Com o swap desativado o diretório do svxlink será apagado no boot e precisará ser reestabelecido
 			} else
 				if(fileExists("17.12.2.tar.gz")==1)
 				{
 					printf("   Arquivos de instalação detectados em /home/pi/Downloads...\n\n");
+					printf("   Iniciando descompactação...\n\n");
+					system("tar -xvzf 17.12.2.tar.gz && mv svxlink-17.12.2 svxlink-master");
+					printf("\n\n   Descompactação concluída!\n");
+					printf("   Iniciando instalação...\n\n");
+					printf("\n\n   Criando diretório de compilação...\n\n");
+					system("mkdir /home/pi/Downloads/svxlink-master/src/build");
+					printf("\n\n   Diretório de compilação criado!\n");
+					printf("\n\n   Compilando arquivos de instalação...\n\n");
+					system("cd /home/pi/Downloads/svxlink-master/src/build && cmake -DCMAKE_INSTALL_PREFIX=/usr -DSYSCONF_INSTALL_DIR=/etc -DLOCAL_STATE_DIR=/var -DUSE_OSS=NO -DUSE_QT=NO .. && make && make doc && sudo ldconfig && sudo make install");
+					printf("\n\n   Compilação concluída!\n");
+					printf("\n\n   Configurando SWAP para SVXLINK...\n\n");
+					system("cd /var/spool && sudo chmod 777 svxlink && sudo tar zcvf svxlink.tgz svxlink"); //Com o swap desativado o diretório do svxlink será apagado no boot e precisará ser reestabelecido
 				};
 			
-			printf("   Iniciando descompactação...\n\n");
-			system("tar -xvzf 17.12.2.tar.gz && mv svxlink-17.12.2 svxlink-master");
-			printf("\n\n   Descompactação concluída!\n");
-			printf("   Iniciando instalação...\n\n");
-			printf("\n\n   Criando diretório de compilação...\n\n");
-			system("mkdir /home/pi/Downloads/svxlink-master/src/build");
-			printf("\n\n   Diretório de compilação criado!\n");
-			printf("\n\n   Compilando arquivos de instalação...\n\n");
-			system("cd /home/pi/Downloads/svxlink-master/src/build && cmake -DCMAKE_INSTALL_PREFIX=/usr -DSYSCONF_INSTALL_DIR=/etc -DLOCAL_STATE_DIR=/var -DUSE_OSS=NO -DUSE_QT=NO .. && make && make doc && sudo ldconfig && sudo make install");
-			printf("\n\n   Compilação concluída!\n");
-			printf("\n\n   Configurando SWAP para SVXLINK...\n\n");
-			system("cd /var/spool && sudo chmod 777 svxlink && sudo tar zcvf svxlink.tgz svxlink"); //Com o swap desativado o diretório do svxlink será apagado no boot e precisará ser reestabelecido
 			printf("\n\n   Instalando arquivos de áudio do SVXLINK\n\n");
 			
 			if(fileExists("/home/pi/Downloads/svxlink-sounds-en_US-heather-16k-13.12.tar.bz2")==0)
