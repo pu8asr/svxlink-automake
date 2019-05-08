@@ -53,3 +53,5 @@ Este texto está em Português do Brasil e pretendemos disponibilizar tambem em 
 Grupo de discussão oficial sobre Echolink no Raspberry no Whatsapp - https://goo.gl/ZHkPSw
 
 Este instalador simplifica o processo exibido neste cruso em vídeo - https://goo.gl/MGqJ5t
+
+Adiquira seu Raspberry, cartão de memória, dongle de áudio, case, dissipadores de calor, fontes e tudo mais que você precisa para montar o seu link, na minha loja no Magazine Luiza acessando o link www.magazinevoce.com.br/magazineairamripardo
